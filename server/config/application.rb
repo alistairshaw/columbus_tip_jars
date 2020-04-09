@@ -31,5 +31,7 @@ module Server
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    config.generators.helper = false
+    config.generators.stylesheets = false
   end
 end
