@@ -14,10 +14,12 @@ require "action_view/railtie"
 require "action_cable/engine"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
+require "dotenv-rails" unless Rails.env.production?
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+Dotenv::Railtie.load unless Rails.env.production?
 
 module Server
   class Application < Rails::Application
@@ -31,5 +33,7 @@ module Server
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    config.generators.helper = false
+    config.generators.stylesheets = false
   end
 end
