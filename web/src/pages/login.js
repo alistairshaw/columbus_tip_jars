@@ -3,14 +3,15 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
-import React, {useState} from 'react'
+import React from 'react'
+import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
+import axios from 'axios'
 import {Button} from '@material-ui/core'
 import {
   FormControl,
-  Input,
-  InputLabel,
 } from '@material-ui/core'
+import {Formik} from 'formik'
 import {makeStyles} from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
@@ -34,82 +35,108 @@ const useStyles = makeStyles({
 
 const Login = () => {
   const classes = useStyles()
-  let [form, setForm] = useState({
-    email: '',
-    password: '',
-  })
-
-  const handleInputChange = (e) => {
-    const {name, value} = e.target
-    setForm({...form, [name]: value})
-  }
-
-  const handleSubmitLogin = () => {
-    //console.log('API Call', form)
-    // Make API call here
-  }
 
   return (
     <Container>
       <Card className={classes.root}>
-        <CardContent>
-          <Typography
-            gutterBottom className={classes.title}
-            color={'textPrimary'}
-          >
-            Login
-          </Typography>
-          <div>
-            <FormControl className={classes.formInputs}>
-              <InputLabel htmlFor={'email'}>Email address</InputLabel>
-              <Input
-                aria-describedby={'email'}
-                autoComplete={'off'}
-                id={'email'}
-                name={'email'}
-                onChange={(e) => {
-                  handleInputChange(e)
-                }} value={form.email}
-              />
-            </FormControl>
-          </div>
+        <Formik
+          initialValues={{
+            email: '',
+            password: '',
+          }}
+          onSubmit={(values, {setSubmitting}) => {
+            console.log('values', values)
+            return axios.post('/api/v1/auth/login', values)
+              .then((res) => {
+                console.log('res', res)
+                setSubmitting(false)
+              })
+          }}
+          validate={(values) => {
+            const errors = {}
+            if (!values.email) {
+              errors.email = 'Required'
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email) ) {
+              errors.email = 'Invalid email address'
+            }
+            return errors
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <div>
+              <CardContent>
+                <Typography
+                  gutterBottom className={classes.title}
+                  color={'textPrimary'}
+                >
+                  Register
+                </Typography>
+                <div>
+                  <FormControl className={classes.formInputs}>
+                    <TextField
+                      aria-describedby={'email'}
+                      error={!!errors.email}
+                      helperText={errors.email && touched.email && errors.email}
+                      id={'email'}
 
-          <div>
-            <FormControl className={classes.formInputs}>
-              <InputLabel htmlFor={'password'}>Password</InputLabel>
-              <Input
-                aria-describedby={'password'}
-                name={'password'}
-                onChange={(e) => {
-                  handleInputChange(e)
-                }} value={form.password}
-              />
-            </FormControl>
-          </div>
+                      label={'Email'}
+                      name={'email'}
+                      onBlur={handleBlur} onChange={handleChange}
+                      value={values.email}
+                    />
+                  </FormControl>
+                </div>
 
-        </CardContent>
-        <CardActions>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Button
-                className={classes.fullWidth} color={'primary'}
-                onClick={handleSubmitLogin}
-                size={'small'}
-                variant={'contained'}
-              >
-                Log In
-              </Button>
-            </Grid>
-            <Grid item xs={12}>
-              <a
-                className={classes.fullWidth}
-                href={'/register'}
-              >Sign Up
-              </a>
-            </Grid>
-          </Grid>
-
-        </CardActions>
+                <div>
+                  <FormControl className={classes.formInputs}>
+                    <TextField
+                      aria-describedby={'password'}
+                      error={!!errors.password}
+                      helperText={errors.password && touched.password && errors.password}
+                      label={'Password'}
+                      name={'password'}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      type={'password'}
+                      value={values.password}
+                    />
+                  </FormControl>
+                </div>
+              </CardContent>
+              <CardActions>
+                <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    <Button
+                      className={classes.fullWidth}
+                      color={'primary'} disabled={isSubmitting}
+                      onClick={handleSubmit}
+                      size={'small'}
+                      type={'submit'}
+                      variant={'contained'}
+                    >
+                      Log In
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <a
+                      className={classes.fullWidth}
+                      href={'/register'}
+                    >Sign Up
+                    </a>
+                  </Grid>
+                </Grid>
+              </CardActions>
+            </div>
+          )}
+        </Formik>
       </Card>
     </Container>
   )
