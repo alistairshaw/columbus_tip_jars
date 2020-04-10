@@ -81,8 +81,6 @@ RSpec.describe "Business Profiles" do
     context "when authorized" do
       context "when given valid params" do
         it "creates and returns the new business profile", :aggregate_failures do
-          expect(user.business_profiles).to be_empty
-
           expect do
             post "/api/v1/business_profiles",
                  headers: { "HTTP_AUTHORIZATION": "Bearer #{auth_token.token}" },
@@ -115,6 +113,60 @@ RSpec.describe "Business Profiles" do
           expect(response).to have_http_status(:unauthorized)
           expect(json_body).to be_empty
         end.not_to change(BusinessProfile, :count)
+      end
+    end
+  end
+
+  describe "PUT /api/v1/business_profiles/:id" do
+    let(:user) { auth_token.user }
+    let(:auth_token) { create(:auth_token) }
+    let(:business_profile) { create(:business_profile, user: user) }
+
+    context "when authorized" do
+      context "when you are allowed to update the business profile" do
+        it "updates and returns the new business profile", :aggregate_failures do
+          put "/api/v1/business_profiles/#{business_profile.id}",
+              headers: { "HTTP_AUTHORIZATION": "Bearer #{auth_token.token}" },
+              params: { business_profile: { name: "My New Business" } }
+
+          expect(response).to have_http_status(:ok)
+          expect(json_body[:errors]).to be_empty
+          expect(json_body[:resource][:id]).to eq(business_profile.id)
+          expect(json_body[:resource][:name]).to eq("My New Business")
+          expect(json_body[:resource][:description]).to eq(business_profile.description)
+          expect(json_body[:resource][:address1]).to eq(business_profile.address1)
+        end
+
+        context "when given invalid params" do
+          it "returns errors" do
+            put "/api/v1/business_profiles/#{business_profile.id}", headers: { "HTTP_AUTHORIZATION": "Bearer #{auth_token.token}" }
+
+            expect(response).to have_http_status(:unprocessable_entity)
+          end
+        end
+      end
+
+      context "when you are not allowed to update the business profile" do
+        let(:business_profile) { create(:business_profile) }
+
+        it "returns unauthorized" do
+          put "/api/v1/business_profiles/#{business_profile.id}",
+              headers: { "HTTP_AUTHORIZATION": "Bearer #{auth_token.token}" },
+              params: { business_profile: { name: "My New Business" } }
+
+          expect(response).to have_http_status(:unauthorized)
+        end
+      end
+    end
+
+    context "when unauthorized" do
+      it "is unauthorized" do
+        put "/api/v1/business_profiles/#{business_profile.id}",
+            headers: { "HTTP_AUTHORIZATION": "Bearer invalid" },
+            params: { business_profile: { name: "My New Business" } }
+
+        expect(response).to have_http_status(:unauthorized)
+        expect(json_body).to be_empty
       end
     end
   end
