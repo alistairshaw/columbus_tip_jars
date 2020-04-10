@@ -12,7 +12,6 @@
     "test": "jest",
     "test:single": "jest"
   },
-  "proxy": "http://localhost:3000",
   "dependencies": {
     "@material-ui/core": "^4.9.9",
     "@material-ui/icons": "^4.9.1",
