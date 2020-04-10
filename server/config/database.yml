@@ -7,7 +7,7 @@ local_default: &local_default
   username: <%= ENV.fetch("DATABASE_USER") %>
   password: <%= ENV.fetch("DATABASE_PASSWORD") %>
   host: localhost
-  port: 5432
+  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
 development:
   <<: *local_default
   database: tipjar_server_development

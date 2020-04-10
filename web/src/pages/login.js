@@ -42,7 +42,7 @@ const Login = () => {
   }
 
   const handleSubmitLogin = () => {
-    console.log('API Call', form)
+    //console.log('API Call', form)
     // Make API call here
   }
 

@@ -7,6 +7,7 @@ AllCops:
     - "bin/**/*"
     - "node_modules/**/*"
     - "db/schema.rb"
+    - "vendor/**/*"
 
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
