@@ -1,19 +1,20 @@
+import AuthService from '../utils/auth-service'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Container from '@material-ui/core/Container'
 import FormErrors from '../utils/form-errors'
 import Grid from '@material-ui/core/Grid'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
-import axios from 'axios'
 import {Button} from '@material-ui/core'
 import {
   FormControl,
 } from '@material-ui/core'
 import {Formik} from 'formik'
 import {makeStyles} from '@material-ui/core/styles'
+const auth = new AuthService()
 
 const useStyles = makeStyles({
   root: {
@@ -38,6 +39,13 @@ const Login = () => {
   const classes = useStyles()
   const [formErrors, setFormErrors] = useState([])
 
+  useEffect(() => {
+    // Update the document title using the browser API
+    if (auth.loggedIn()) {
+      window.location = '/'
+    }
+  })
+
   return (
     <Container>
       <Card className={classes.root}>
@@ -47,17 +55,13 @@ const Login = () => {
             password: '',
           }}
           onSubmit={({ email, password }, {setSubmitting}) => {
-            return axios.post('http://localhost:3000/api/v1/auth/login', {
-              user: {
-                email,
-                password,
-              },
+            setFormErrors([])
+            return auth.login(email, password).catch(({response: {data: { errors }}}) => {
+              setFormErrors(errors)
+            }).then((res) => {
+              console.log('login response', res)
+              // window.location = '/';
             })
-              .then(() => {
-                setSubmitting(false)
-              }).catch(({response: {data: { errors }}}) => {
-                setFormErrors(errors)
-              })
           }}
           validate={(values) => {
             const errors = {}
@@ -144,6 +148,7 @@ const Login = () => {
             </div>
           )}
         </Formik>
+        <a href={'/'}>Home</a>
       </Card>
     </Container>
   )
