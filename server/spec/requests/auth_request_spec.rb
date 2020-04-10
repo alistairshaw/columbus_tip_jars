@@ -5,7 +5,7 @@ RSpec.describe "Authentication", type: :request do
     context "when given the required attributes" do
       it "creates a user and auth token" do
         expect do
-          post "/api/v1/auth/register", :params => { :user => user_params }
+          post "/api/v1/auth/register", params: { user: user_params }
 
           expect(response).to have_http_status(:created)
           expect(json_body[:resource][:id]).not_to eq(nil)
@@ -15,10 +15,10 @@ RSpec.describe "Authentication", type: :request do
 
       context "when they are invalid" do
         it "returns http success" do
-          post "/api/v1/auth/register", :params => {
-            :user => {
-              :email => nil,
-              :password => nil,
+          post "/api/v1/auth/register", params: {
+            user: {
+              email: nil,
+              password: nil
             }
           }
 

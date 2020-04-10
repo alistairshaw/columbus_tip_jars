@@ -5,9 +5,9 @@ class AuthenticationService
     if user.save
       user.auth_tokens.create!
 
-      OpenStruct.new(:user => user, :success? => true)
+      OpenStruct.new(user: user, success?: true)
     else
-      OpenStruct.new(:user => user, :success? => false)
+      OpenStruct.new(user: user, success?: false)
     end
   end
 end

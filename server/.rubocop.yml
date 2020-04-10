@@ -1,0 +1,119 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - "bin/**/*"
+    - "node_modules/**/*"
+    - "db/schema.rb"
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+Lint/Debugger:
+  AutoCorrect: false
+
+Lint/IneffectiveAccessModifier:
+  Enabled: false
+
+Lint/UselessAccessModifier:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Layout/LineLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Max: 7
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+# prefixes should be avoided before predicates in general, but they make sense
+# in some cases, particularly if an arg is being passed to the method
+Naming/PredicateName:
+  Enabled: false
+
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+Style/ConditionalAssignment:
+  Enabled: false
+
+# class documentation isn't necessary
+Style/Documentation:
+  Enabled: false
+
+# use !! to return a boolean where appropriate
+Style/DoubleNegation:
+  Enabled: false
+
+# not going to force using guard clauses
+Style/GuardClause:
+  Enabled: false
+
+Style/FloatDivision:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedStyle: ruby19
+
+# not requiring guard clauses for single-line bodies
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/NumericLiterals:
+  MinDigits: 6
+
+# use raise to raise an exception
+Style/SignalException:
+  EnforcedStyle: only_raise
+
+# use double quotes for string literals
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+# okay to use double quotes inside interpolation
+Style/StringLiteralsInInterpolation:
+  Enabled: false
+
+# disabling this so that %w() syntax isn't required in nested arrays which would have mixed syntax
+Style/WordArray:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  AutoCorrect: true
+  EnforcedStyle: nested
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
