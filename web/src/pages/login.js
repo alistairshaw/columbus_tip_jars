@@ -2,8 +2,9 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Container from '@material-ui/core/Container'
+import FormErrors from '../utils/form-errors'
 import Grid from '@material-ui/core/Grid'
-import React from 'react'
+import React, {useState} from 'react'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import axios from 'axios'
@@ -35,6 +36,7 @@ const useStyles = makeStyles({
 
 const Login = () => {
   const classes = useStyles()
+  const [formErrors, setFormErrors] = useState([])
 
   return (
     <Container>
@@ -44,12 +46,17 @@ const Login = () => {
             email: '',
             password: '',
           }}
-          onSubmit={(values, {setSubmitting}) => {
-            console.log('values', values)
-            return axios.post('/api/v1/auth/login', values)
-              .then((res) => {
-                console.log('res', res)
+          onSubmit={({ email, password }, {setSubmitting}) => {
+            return axios.post('http://localhost:3000/api/v1/auth/login', {
+              user: {
+                email,
+                password,
+              },
+            })
+              .then(() => {
                 setSubmitting(false)
+              }).catch(({response: {data: { errors }}}) => {
+                setFormErrors(errors)
               })
           }}
           validate={(values) => {
@@ -77,7 +84,7 @@ const Login = () => {
                   gutterBottom className={classes.title}
                   color={'textPrimary'}
                 >
-                  Register
+                  Log In
                 </Typography>
                 <div>
                   <FormControl className={classes.formInputs}>
@@ -110,6 +117,7 @@ const Login = () => {
                     />
                   </FormControl>
                 </div>
+                <FormErrors errors={formErrors} />
               </CardContent>
               <CardActions>
                 <Grid container spacing={3}>
@@ -125,12 +133,11 @@ const Login = () => {
                       Log In
                     </Button>
                   </Grid>
-                  <Grid item xs={12}>
-                    <a
-                      className={classes.fullWidth}
-                      href={'/register'}
-                    >Sign Up
-                    </a>
+                  <Grid
+                    item className={classes.fullWidth}
+                    xs={12}
+                  >
+                    Need an account? <a href={'/register'} >Sign Up</a>
                   </Grid>
                 </Grid>
               </CardActions>
