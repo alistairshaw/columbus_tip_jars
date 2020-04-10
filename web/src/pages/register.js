@@ -2,6 +2,7 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Container from '@material-ui/core/Container'
+import FormErrors from '../utils/form-errors'
 import Grid from '@material-ui/core/Grid'
 import React, {useState} from 'react'
 import TextField from '@material-ui/core/TextField'
@@ -35,28 +36,28 @@ const useStyles = makeStyles({
 
 const Register = () => {
   const classes = useStyles()
-  let [form] = useState({
-    email: '',
-    password: '',
-  })
+  const [formErrors, setFormErrors] = useState([])
 
   return (
     <Container>
       <Card className={classes.root}>
         <Formik
-          initialValues={form}
+          initialValues={{
+            email: '',
+            password: '',
+            password2: '',
+          }}
           onSubmit={({ email, password }, {setSubmitting}) => {
             return axios.post('http://localhost:3000/api/v1/auth/register', {
               user: {
                 email,
                 password,
               },
-            }).then((res) => {
-              // eslint-disable-next-line
-              console.log('res', res)
+            }).then(() => {
               setSubmitting(false)
-              // eslint-disable-next-line
-            }).catch(console.error)
+            }).catch(({response: {data: { errors }}}) => {
+              setFormErrors(errors)
+            })
           }}
           validate={(values) => {
             const errors = {}
@@ -95,11 +96,12 @@ const Register = () => {
                   <FormControl className={classes.formInputs}>
                     <TextField
                       aria-describedby={'email'}
-                      error={errors.email}
+                      error={!!errors.email}
                       helperText={errors.email && touched.email && errors.email}
                       id={'email'}
                       label={'Email'}
-                      name={'email'} onChange={handleChange}
+                      name={'email'}
+                      onBlur={handleBlur} onChange={handleChange}
                       value={values.email}
                     />
 
@@ -110,7 +112,7 @@ const Register = () => {
                   <FormControl className={classes.formInputs}>
                     <TextField
                       aria-describedby={'password'}
-                      error={errors.password}
+                      error={!!errors.password}
                       helperText={errors.password && touched.password && errors.password}
                       label={'Password'}
                       name={'password'}
@@ -126,17 +128,18 @@ const Register = () => {
                   <FormControl className={classes.formInputs}>
                     <TextField
                       aria-describedby={'password2'}
-                      error={errors.password}
+                      error={!!errors.password}
                       helperText={errors.password && touched.password && errors.password}
                       label={'Password Again'}
                       name={'password2'}
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      type={'password2'}
+                      type={'password'}
                       value={values.password2}
                     />
                   </FormControl>
                 </div>
+                <FormErrors errors={formErrors} />
               </CardContent>
               <CardActions>
                 <Grid container spacing={3}>
@@ -152,12 +155,11 @@ const Register = () => {
                       Sign Up
                     </Button>
                   </Grid>
-                  <Grid item xs={12}>
-                    <a
-                      className={classes.fullWidth}
-                      href={'/login'}
-                    >Login
-                    </a>
+                  <Grid
+                    item className={classes.fullWidth}
+                    xs={12}
+                  >
+                    Already have an account? <a href={'/login'}>Log In</a>
                   </Grid>
                 </Grid>
               </CardActions>
