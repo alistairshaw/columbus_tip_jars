@@ -18,6 +18,9 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.include FactoryBot::Syntax::Methods
   config.infer_spec_type_from_file_location!
+  config.include JsonHelper, :type => :serializer
+  config.include JsonHelper, :type => :controller
+  config.include JsonHelper, :type => :request
   config.filter_rails_from_backtrace!
 end
 
