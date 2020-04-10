@@ -35,5 +35,12 @@ module Server
     config.generators.system_tests = nil
     config.generators.helper = false
     config.generators.stylesheets = false
+
+    config.middleware.insert_before(0, Rack::Cors) do
+      allow do
+        origins "*"
+        resource "*", headers: :any, methods: %i[get post delete patch put options head], max_age: 0
+      end
+    end
   end
 end
