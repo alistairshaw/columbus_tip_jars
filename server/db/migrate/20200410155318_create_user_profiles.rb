@@ -5,8 +5,7 @@ class CreateUserProfiles < ActiveRecord::Migration[6.0]
       t.string :photo_url
       t.string :industry
       t.string :nickname
-      t.belongs_to :user, null: false, foreign_key: true
-      t.uuid :user_id
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

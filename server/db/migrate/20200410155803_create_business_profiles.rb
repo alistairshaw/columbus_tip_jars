@@ -10,8 +10,7 @@ class CreateBusinessProfiles < ActiveRecord::Migration[6.0]
       t.string :city
       t.string :state
       t.integer :zip
-      t.belongs_to :user, null: false, foreign_key: true
-      t.uuid :user_id
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_09_205625) do
+ActiveRecord::Schema.define(version: 2020_04_10_160731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,52 @@ ActiveRecord::Schema.define(version: 2020_04_09_205625) do
     t.index ["user_id"], name: "index_auth_tokens_on_user_id"
   end
 
+  create_table "business_profiles", force: :cascade do |t|
+    t.string "name"
+    t.string "industry"
+    t.string "logo_url"
+    t.text "description"
+    t.string "address1"
+    t.string "address2"
+    t.string "city"
+    t.string "state"
+    t.integer "zip"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_business_profiles_on_user_id"
+  end
+
+  create_table "business_user_profiles", force: :cascade do |t|
+    t.bigint "business_profile_id", null: false
+    t.bigint "user_profile_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["business_profile_id"], name: "index_business_user_profiles_on_business_profile_id"
+    t.index ["user_profile_id"], name: "index_business_user_profiles_on_user_profile_id"
+  end
+
+  create_table "donation_methods", force: :cascade do |t|
+    t.string "profile_type", null: false
+    t.bigint "profile_id", null: false
+    t.string "vendor_name"
+    t.string "vendor_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["profile_type", "profile_id"], name: "index_donation_methods_on_profile_type_and_profile_id"
+  end
+
+  create_table "user_profiles", force: :cascade do |t|
+    t.string "user_name"
+    t.string "photo_url"
+    t.string "industry"
+    t.string "nickname"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_profiles_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -33,4 +79,8 @@ ActiveRecord::Schema.define(version: 2020_04_09_205625) do
   end
 
   add_foreign_key "auth_tokens", "users"
+  add_foreign_key "business_profiles", "users"
+  add_foreign_key "business_user_profiles", "business_profiles"
+  add_foreign_key "business_user_profiles", "user_profiles"
+  add_foreign_key "user_profiles", "users"
 end
