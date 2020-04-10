@@ -4,7 +4,6 @@ FactoryBot.define do
     photo_url { "www.my-fake-photo.com" }
     industry { "Fake Industry" }
     nickname { "Fake Nickname" }
-    user { create(:user) }
-    user_id { user.id }
+    user
   end
 end

@@ -9,7 +9,6 @@ FactoryBot.define do
     city { "Columbus" }
     state { "OH" }
     zip { 43214 }
-    user { creaet(:user) }
-    user_id { user.id }
+    user
   end
 end
