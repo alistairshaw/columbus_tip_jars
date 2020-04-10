@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles'
-import { deepOrange, pink } from '@material-ui/core/colors'
+import { pink } from '@material-ui/core/colors'
 
 // Create a theme instance.
 const theme = createMuiTheme({
@@ -8,7 +8,7 @@ const theme = createMuiTheme({
       main: '#4300FF',
     },
     secondary: {
-      main: deepOrange[500],
+      main: '#13efc3',
     },
     error: {
       main: pink.A400,
@@ -16,6 +16,9 @@ const theme = createMuiTheme({
     background: {
       default: '#fff',
     },
+  },
+  typography: {
+    fontFamily: 'Raleway',
   },
 })
 
