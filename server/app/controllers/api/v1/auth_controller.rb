@@ -23,7 +23,7 @@ module Api
         if result.success?
           render json: { errors: [], resource: result.user, auth_token: result.user.auth_tokens.first.token }, status: :ok
         else
-          render json: { errors: [I18n.t!("invalid_email_or_password")] }, status: :unprocessable_entity
+          render json: { errors: [I18n.t!("invalid_email_or_password")], resource: nil, auth_token: nil }, status: :unprocessable_entity
         end
       end
 
