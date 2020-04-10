@@ -35,7 +35,7 @@ const useStyles = makeStyles({
 
 const Register = () => {
   const classes = useStyles()
-  let [form, setForm] = useState({
+  let [form] = useState({
     email: '',
     password: '',
   })
@@ -45,13 +45,18 @@ const Register = () => {
       <Card className={classes.root}>
         <Formik
           initialValues={form}
-          onSubmit={(values, {setSubmitting}) => {
-            console.log('values', values)
-            return axios.post('/api/v1/auth/register', values)
-              .then((res) => {
-                console.log('res', res)
-                setSubmitting(false)
-              })
+          onSubmit={({ email, password }, {setSubmitting}) => {
+            return axios.post('http://localhost:3000/api/v1/auth/register', {
+              user: {
+                email,
+                password,
+              },
+            }).then((res) => {
+              // eslint-disable-next-line
+              console.log('res', res)
+              setSubmitting(false)
+              // eslint-disable-next-line
+            }).catch(console.error)
           }}
           validate={(values) => {
             const errors = {}
