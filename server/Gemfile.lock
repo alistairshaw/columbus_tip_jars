@@ -181,8 +181,6 @@ GEM
       activesupport
       rack (>= 1.1)
       rubocop (>= 0.72.0)
-    rubocop-rspec (1.38.1)
-      rubocop (>= 0.68.1)
     ruby-progressbar (1.10.1)
     ruby_dep (1.5.0)
     sass-rails (6.0.0)
@@ -250,7 +248,6 @@ DEPENDENCIES
   rspec-rails
   rubocop-daemon
   rubocop-rails
-  rubocop-rspec
   sass-rails (>= 6)
   shoulda-matchers
   spring
