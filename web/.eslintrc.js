@@ -63,6 +63,7 @@ module.exports = {
     'no-unsafe-negation': 'error',
     'no-useless-return': 'error',
     'no-var': 'error',
+    'object-curly-spacing': ['error', 'always'],
     'quotes': ['error','single'],
     'semi': ['error','never'],
     'space-before-function-paren': ['error', { 'anonymous': 'always', 'named': 'never' }],

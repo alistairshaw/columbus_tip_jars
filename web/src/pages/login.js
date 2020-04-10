@@ -4,16 +4,16 @@ import CardContent from '@material-ui/core/CardContent'
 import Container from '@material-ui/core/Container'
 import FormErrors from '../utils/form-errors'
 import Grid from '@material-ui/core/Grid'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import axios from 'axios'
-import {Button} from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import {
   FormControl,
 } from '@material-ui/core'
-import {Formik} from 'formik'
-import {makeStyles} from '@material-ui/core/styles'
+import { Formik } from 'formik'
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
   root: {
@@ -46,7 +46,7 @@ const Login = () => {
             email: '',
             password: '',
           }}
-          onSubmit={({ email, password }, {setSubmitting}) => {
+          onSubmit={({ email, password }, { setSubmitting }) => {
             return axios.post('http://localhost:3000/api/v1/auth/login', {
               user: {
                 email,
@@ -55,7 +55,7 @@ const Login = () => {
             })
               .then(() => {
                 setSubmitting(false)
-              }).catch(({response: {data: { errors }}}) => {
+              }).catch(({ response: { data: { errors } } }) => {
                 setFormErrors(errors)
               })
           }}
