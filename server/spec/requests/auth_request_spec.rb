@@ -11,6 +11,7 @@ RSpec.describe "Authentication", type: :request do
           expect(json_body[:resource][:id]).not_to eq(nil)
           expect(json_body[:resource][:email]).to eq(user_params[:email])
           expect(json_body[:resource]).not_to include(:password)
+          expect(json_body[:auth_token]).not_to eq(nil)
         end.to change(User, :count).by(1).and change(AuthToken, :count).by(1)
       end
 

@@ -11,9 +11,9 @@ module Api
         result = AuthenticationService.register(email: user_params[:email], password: user_params[:password])
 
         if result.success?
-          render json: { errors: [], resource: result.user }, status: :created
+          render json: { errors: [], resource: result.user, auth_token: result.user.auth_tokens.first.token }, status: :created
         else
-          render json: { errors: result.user.errors.full_messages, resource: nil }, status: :unprocessable_entity
+          render json: { errors: result.user.errors.full_messages, resource: nil, auth_token: nil }, status: :unprocessable_entity
         end
       end
 
