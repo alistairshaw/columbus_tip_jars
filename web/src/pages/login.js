@@ -2,6 +2,7 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
 import React, {useState} from 'react'
 import Typography from '@material-ui/core/Typography'
 import {Button} from '@material-ui/core'
@@ -24,8 +25,10 @@ const useStyles = makeStyles({
     width: '100%',
     marginBottom: 15,
   },
-  loginBtn: {
-    flex: 1,
+  fullWidth: {
+    display: 'block',
+    width: '100%',
+    textAlign: 'center',
   },
 })
 
@@ -61,6 +64,7 @@ const Login = () => {
               <InputLabel htmlFor={'email'}>Email address</InputLabel>
               <Input
                 aria-describedby={'email'}
+                autoComplete={'off'}
                 id={'email'}
                 name={'email'}
                 onChange={(e) => {
@@ -84,13 +88,27 @@ const Login = () => {
           </div>
 
         </CardContent>
-        <CardActions align={'right'}>
-          <Button
-            className={classes.loginBtn}
-            onClick={handleSubmitLogin}
-            size={'small'}
-          >Login
-          </Button>
+        <CardActions>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Button
+                className={classes.fullWidth} color={'primary'}
+                onClick={handleSubmitLogin}
+                size={'small'}
+                variant={'contained'}
+              >
+                Log In
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <a
+                className={classes.fullWidth}
+                href={'/register'}
+              >Sign Up
+              </a>
+            </Grid>
+          </Grid>
+
         </CardActions>
       </Card>
     </Container>
