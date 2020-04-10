@@ -21,6 +21,7 @@ RSpec.configure do |config|
   config.include JsonHelper, type: :serializer
   config.include JsonHelper, type: :controller
   config.include JsonHelper, type: :request
+  config.include AuthHelper, type: :controller
   config.filter_rails_from_backtrace!
 end
 
