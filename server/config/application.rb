@@ -8,11 +8,11 @@ require "active_record/railtie"
 require "active_storage/engine"
 require "action_controller/railtie"
 require "action_mailer/railtie"
-require "action_mailbox/engine"
-require "action_text/engine"
-require "action_view/railtie"
-require "action_cable/engine"
-require "sprockets/railtie"
+# require "action_mailbox/engine"
+# require "action_text/engine"
+# require "action_view/railtie"
+# require "action_cable/engine"
+# require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 require "dotenv-rails" unless Rails.env.production?
 
@@ -35,5 +35,12 @@ module Server
     config.generators.system_tests = nil
     config.generators.helper = false
     config.generators.stylesheets = false
+
+    config.middleware.insert_before(0, Rack::Cors) do
+      allow do
+        origins "*"
+        resource "*", headers: :any, methods: %i[get post delete patch put options head], max_age: 0
+      end
+    end
   end
 end

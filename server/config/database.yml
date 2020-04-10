@@ -1,19 +1,25 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: 2
+  variables:
+    statement_timeout: 30000
+
 local_default: &local_default
   <<: *default
-  username: <%= ENV.fetch("DATABASE_USER") %>
-  password: <%= ENV.fetch("DATABASE_PASSWORD") %>
-  host: localhost
-  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
+  username: <%= ENV["DATABASE_USER"] || "root" %>
+  password: <%= ENV["DATABASE_PASSWORD"] || "root" %>
+  host: <%= ENV["DATABASE_HOST"] || "localhost" %>
+  port: <%= ENV["DATABASE_PORT"] || "5432" %>
+
 development:
   <<: *local_default
   database: tipjar_server_development
+
 test:
   <<: *local_default
   database: tipjar_server_test
+
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
