@@ -1,3 +1,3 @@
 RSpec.describe DonationMethod, type: :model do
-  it { should belong_to(:profile).polymorphic }
+  it { should belong_to(:profile) }
 end
