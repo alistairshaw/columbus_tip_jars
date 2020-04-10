@@ -6,9 +6,9 @@ class Api::V1::AuthController < ApiController
     )
 
     if result.success?
-      render :json => { errors: [], resource: result.user }, :status => :created
+      render json: { errors: [], resource: result.user }, status: :created
     else
-      render :json => { errors: result.user.errors.full_messages, resource: nil }, :status => :unprocessable_entity
+      render json: { errors: result.user.errors.full_messages, resource: nil }, status: :unprocessable_entity
     end
   end
 
