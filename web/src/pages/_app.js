@@ -1,7 +1,7 @@
-import CssBaseline from '@material-ui/core/CssBaseline'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import theme from 'src/utils/theme'
+import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles'
 
 export default function App({ Component, pageProps }) {
