@@ -148,7 +148,6 @@ const Login = () => {
             </div>
           )}
         </Formik>
-        <a href={'/'}>Home</a>
       </Card>
     </Container>
   )
