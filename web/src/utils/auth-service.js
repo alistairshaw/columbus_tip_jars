@@ -97,11 +97,13 @@ export default class AuthService {
       headers['Authorization'] = 'Bearer ' + this.getToken()
     }
 
-    return fetch(url, {
+    return axios({
+      method: options.method,
+      url,
       headers,
       ...options,
     })
       .then(this._checkStatus)
-      .then((response) => response.json())
+      .then((response) => response.data)
   }
 }
