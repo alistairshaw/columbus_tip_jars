@@ -27,6 +27,20 @@ export default class AuthService {
       })
   }
 
+  register(email, password) {
+    // Get a token
+    return axios.post(`${this.domain}/api/v1/auth/register`, {
+      user: {
+        email,
+        password,
+      },
+    }) .then(({ data: { auth_token, resource: profile } }) => {
+      this.setToken(auth_token)
+      this.setProfile(profile)
+      window.location = '/'
+    })
+  }
+
   loggedIn(){
     // Checks if there is a saved token and it's still valid
     const token = this.getToken()
