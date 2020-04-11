@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 
-const FormErrors = ({errors}) => {
+const FormErrors = ({ errors }) => {
 
   return (
     <>
