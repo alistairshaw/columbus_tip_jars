@@ -39,12 +39,12 @@ module Api
 
         render json: {}, status: :unauthorized unless user_profile
       end
-      
+
       def user_profile_params
         params.require(:user_profile).permit(
-          :user_name, 
-          :photo_url, 
-          :industry, 
+          :user_name,
+          :photo_url,
+          :industry,
           :nickname
         ).to_h.deep_symbolize_keys.merge(user_id: current_user.id)
       end

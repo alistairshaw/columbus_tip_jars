@@ -1,5 +1,3 @@
-require 'pry'
-
 RSpec.describe "User Profiles" do
   describe "GET /api/v1/user_profiles" do
     context "when there are no profiles" do
@@ -31,9 +29,9 @@ RSpec.describe "User Profiles" do
         get "/api/v1/user_profiles"
 
         expect(json_body[:resources].first).to include(
-          :user_name, 
-          :photo_url, 
-          :industry, 
+          :user_name,
+          :photo_url,
+          :industry,
           :nickname
         )
       end
