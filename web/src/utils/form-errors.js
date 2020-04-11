@@ -7,7 +7,7 @@ const FormErrors = ({ errors }) => {
   return (
     <>
       {errors.map( (error, index) =>
-        <Typography color={'Error'} key={index}>{error}</Typography>,
+        <Typography color={'error'} key={index}>{error}</Typography>,
       )}
     </>
   )

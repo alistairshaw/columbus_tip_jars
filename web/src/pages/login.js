@@ -1,6 +1,6 @@
+import AuthService from '../utils/auth-service'
 import FormErrors from '../utils/form-errors'
-import React, { useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   Card,
@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core'
 import { Formik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
+const auth = new AuthService()
 
 const useStyles = makeStyles({
   root: {
@@ -38,6 +39,13 @@ const Login = () => {
   const classes = useStyles()
   const [formErrors, setFormErrors] = useState([])
 
+  useEffect(() => {
+    // Update the document title using the browser API
+    if (auth.loggedIn()) {
+      window.location = '/'
+    }
+  }, [])
+
   return (
     <Container>
       <Card className={classes.root}>
@@ -47,17 +55,13 @@ const Login = () => {
             password: '',
           }}
           onSubmit={({ email, password }, { setSubmitting }) => {
-            return axios.post('http://localhost:3000/api/v1/auth/login', {
-              user: {
-                email,
-                password,
-              },
+            setFormErrors([])
+            return auth.login(email, password).then(() => {
+              setSubmitting(false)
+              window.location = '/'
+            }).catch(({ response: { data: { errors } } }) => {
+              setFormErrors(errors)
             })
-              .then(() => {
-                setSubmitting(false)
-              }).catch(({ response: { data: { errors } } }) => {
-                setFormErrors(errors)
-              })
           }}
           validate={(values) => {
             const errors = {}
@@ -150,3 +154,4 @@ const Login = () => {
 }
 
 export default Login
+

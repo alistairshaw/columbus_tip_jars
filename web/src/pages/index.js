@@ -1,7 +1,35 @@
-import React from 'react'
+import AuthService from '../utils/auth-service'
+import React, { useEffect, useState } from 'react'
+
+const auth = new AuthService()
 
 export default function IndexPage() {
+
+  const [profile, setProfile] = useState({})
+  const [loggedIn, setLoggedIn] = useState(false)
+
+  useEffect(() => {
+    const userProfile = auth.getProfile()
+    setProfile(userProfile)
+    setLoggedIn(auth.loggedIn())
+  }, [])
+
   return (
-    <h1>Welcome to the Columbus Tip Jars</h1>
+    <div>
+      <h1>Welcome to the Columbus Tip Jars {profile?.email}</h1>
+      {loggedIn && (
+        <a
+          href={'#'}
+          onClick={auth.logout}
+        >Log Out
+        </a>
+      )}
+
+      {!loggedIn &&
+        <a href={'login'}>Log In</a>
+      }
+
+    </div>
+
   )
 }
