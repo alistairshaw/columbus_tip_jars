@@ -56,11 +56,11 @@ const Login = () => {
           }}
           onSubmit={({ email, password }, { setSubmitting }) => {
             setFormErrors([])
-            return auth.login(email, password).catch(({ response: { data: { errors } } }) => {
-              setFormErrors(errors)
-            }).then(() => {
+            return auth.login(email, password).then((res) => {
               setSubmitting(false)
               window.location = '/'
+            }).catch(({ response: { data: { errors } } }) => {
+              setFormErrors(errors)
             })
           }}
           validate={(values) => {
