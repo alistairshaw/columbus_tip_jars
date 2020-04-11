@@ -1,5 +1,5 @@
 import AuthService from '../utils/auth-service'
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 const auth = new AuthService()
 
@@ -9,9 +9,7 @@ export default function IndexPage() {
   const [loggedIn, setLoggedIn] = useState(false)
 
   useEffect(() => {
-    const {userProfile} = auth.getProfile()
-
-    console.log('profile', userProfile)
+    const userProfile = auth.getProfile()
     setProfile(userProfile)
     setLoggedIn(auth.loggedIn())
   }, [])
@@ -22,7 +20,7 @@ export default function IndexPage() {
       {loggedIn && (
         <a
           href={'#'}
-          onClick={auth.logout()}
+          onClick={auth.logout}
         >Log Out
         </a>
       )}

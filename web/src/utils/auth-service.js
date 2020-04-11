@@ -10,21 +10,18 @@ export default class AuthService {
 
   login(email, password) {
     // Get a token
-    console.log('auth service login', email, password)
     return axios.post(`${this.domain}/api/v1/auth/login`, {
       user: {
         email,
         password,
       },
     })
-      .then(({data: {auth_token}}) => {
-        console.log('login res', auth_token)
+      .then(({ data: { auth_token } }) => {
         this.setToken(auth_token)
         return this.fetch(`${this.domain}/api/v1/auth/me`, {
           method: 'GET',
         })
-      }).then(({resource}) => {
-        console.log('profile?', resource)
+      }).then(({ resource }) => {
         this.setProfile(resource)
         return Promise.resolve(resource)
       })

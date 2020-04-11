@@ -1,19 +1,19 @@
 import AuthService from '../utils/auth-service'
-import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
-import CardContent from '@material-ui/core/CardContent'
-import Container from '@material-ui/core/Container'
 import FormErrors from '../utils/form-errors'
-import Grid from '@material-ui/core/Grid'
-import React, {useEffect, useState} from 'react'
-import TextField from '@material-ui/core/TextField'
-import Typography from '@material-ui/core/Typography'
-import {Button} from '@material-ui/core'
+import React, { useEffect, useState } from 'react'
 import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Container,
   FormControl,
+  Grid,
+  TextField,
+  Typography,
 } from '@material-ui/core'
-import {Formik} from 'formik'
-import {makeStyles} from '@material-ui/core/styles'
+import { Formik } from 'formik'
+import { makeStyles } from '@material-ui/core/styles'
 const auth = new AuthService()
 
 const useStyles = makeStyles({
@@ -54,13 +54,13 @@ const Login = () => {
             email: '',
             password: '',
           }}
-          onSubmit={({ email, password }, {setSubmitting}) => {
+          onSubmit={({ email, password }, { setSubmitting }) => {
             setFormErrors([])
-            return auth.login(email, password).catch(({response: {data: { errors }}}) => {
+            return auth.login(email, password).catch(({ response: { data: { errors } } }) => {
               setFormErrors(errors)
-            }).then((res) => {
-              console.log('login response', res)
-              // window.location = '/';
+            }).then(() => {
+              setSubmitting(false)
+              window.location = '/'
             })
           }}
           validate={(values) => {

@@ -2,6 +2,25 @@ module.exports = function (api) {
   api.cache.never()
   return {
     presets: ['next/babel'],
-    plugins: [],
+    plugins: [
+      [
+        'babel-plugin-import',
+        {
+          'libraryName': '@material-ui/core',
+          'libraryDirectory': '',
+          'camel2DashComponentName': false,
+        },
+        'core',
+      ],
+      [
+        'babel-plugin-import',
+        {
+          'libraryName': '@material-ui/icons',
+          'libraryDirectory': '',
+          'camel2DashComponentName': false,
+        },
+        'icons',
+      ],
+    ],
   }
 }
