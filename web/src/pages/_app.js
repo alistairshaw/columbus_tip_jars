@@ -1,10 +1,13 @@
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Nav from 'src/components/nav'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
-import theme from 'src/utils/theme'
-import { CssBaseline } from '@material-ui/core'
-import { ThemeProvider } from '@material-ui/core/styles'
+import appTheme from 'src/utils/theme'
+import { ThemeProvider, makeStyles } from '@material-ui/core/styles'
 
 export default function App({ Component, pageProps }) {
+  const classes = useStyles()
+
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles) {
@@ -13,9 +16,15 @@ export default function App({ Component, pageProps }) {
   }, [])
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={appTheme}>
       <CssBaseline />
-      <Component {...pageProps} />
+      <div className={classes.root} >
+        <Nav />
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Component {...pageProps} />
+        </main>
+      </div>
     </ThemeProvider>
   )
 }
@@ -24,3 +33,14 @@ App.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
 }
+
+const useStyles = makeStyles((theme) => ({
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+  root: {
+    display: 'flex',
+  },
+  toolbar: theme.mixins.toolbar,
+}))
