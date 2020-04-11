@@ -44,7 +44,7 @@ const Login = () => {
     if (auth.loggedIn()) {
       window.location = '/'
     }
-  })
+  }, [])
 
   return (
     <Container>
