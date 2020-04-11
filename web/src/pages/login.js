@@ -56,7 +56,7 @@ const Login = () => {
           }}
           onSubmit={({ email, password }, { setSubmitting }) => {
             setFormErrors([])
-            return auth.login(email, password).then((res) => {
+            return auth.login(email, password).then(() => {
               setSubmitting(false)
               window.location = '/'
             }).catch(({ response: { data: { errors } } }) => {
