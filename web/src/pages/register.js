@@ -158,8 +158,10 @@ const Register = () => {
                     item className={classes.fullWidth}
                     xs={12}
                   >
-                    Already have an account? <a
-                      href={'/login'} onClick={(e) => {
+                    Already have an account?
+                    <a
+                      href={'/login'}
+                      onClick={(e) => {
                         e.preventDefault()
                         router.push('/login')
                       }}
