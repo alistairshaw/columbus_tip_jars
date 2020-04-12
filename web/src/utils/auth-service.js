@@ -1,3 +1,4 @@
+import LocalStorageService from 'src/utils/local-storage-service'
 import axios from 'axios'
 
 export default class AuthService {
@@ -29,8 +30,8 @@ export default class AuthService {
 
   logout() {
     // Clear user token and profile data from localStorage
-    localStorage.removeItem('id_token')
-    localStorage.removeItem('profile')
+    LocalStorageService.removeItem('id_token')
+    LocalStorageService.removeItem('profile')
     location.reload(true)
   }
 
@@ -44,7 +45,6 @@ export default class AuthService {
     }) .then(({ data: { auth_token, resource: profile } }) => {
       this.setToken(auth_token)
       this.setProfile(profile)
-      window.location = '/'
     })
   }
 
@@ -56,23 +56,23 @@ export default class AuthService {
 
   setProfile(profile) {
     // Saves profile data to localStorage
-    localStorage.setItem('profile', JSON.stringify(profile))
+    LocalStorageService.setItem('profile', JSON.stringify(profile))
   }
 
   getProfile() {
     // Retrieves the profile data from localStorage
-    const profile = localStorage.getItem('profile')
-    return profile ? JSON.parse(localStorage.profile) : {}
+    const profile = LocalStorageService.getItem('profile')
+    return profile ? JSON.parse(profile) : {}
   }
 
   setToken(idToken) {
     // Saves user token to localStorage
-    localStorage.setItem('id_token', idToken)
+    LocalStorageService.setItem('id_token', idToken)
   }
 
   getToken() {
     // Retrieves the user token from localStorage
-    return localStorage.getItem('id_token')
+    return LocalStorageService.getItem('id_token')
   }
 
   _checkStatus(response) {

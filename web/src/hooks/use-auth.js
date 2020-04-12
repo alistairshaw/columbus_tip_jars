@@ -11,6 +11,6 @@ export default function useAuth() {
     profile: auth.getProfile(),
     register: auth.register,
     setProfile: auth.setProfile,
-    token: auth.token(),
+    token: auth.getToken(),
   }
 }
