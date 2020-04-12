@@ -30,8 +30,8 @@ export default function AppBar({ onDrawerOpen }) {
         >
           <Grid
             item
-            sm={'8'}
-            xs={'6'}
+            sm={8}
+            xs={6}
           >
             <IconButton
               aria-label={'open drawer'}
@@ -45,8 +45,8 @@ export default function AppBar({ onDrawerOpen }) {
           </Grid>
           <Grid
             item
-            sm={'4'}
-            xs={'6'}
+            sm={4}
+            xs={6}
           >
             <div className={classes.search}>
               <div className={classes.searchIcon}>

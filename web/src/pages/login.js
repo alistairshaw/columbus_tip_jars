@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core'
 import { Formik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles({
   root: {
@@ -36,12 +37,13 @@ const useStyles = makeStyles({
 
 const Login = () => {
   const classes = useStyles()
+  const router = useRouter()
   const [formErrors, setFormErrors] = useState([])
-  const { isLoggedIn, login } = useAuth
+  const { isLoggedIn, login } = useAuth()
 
   useEffect(() => {
     if (isLoggedIn) {
-      window.location = '/'
+      router.push('/')
     }
   })
 
@@ -57,7 +59,7 @@ const Login = () => {
             setFormErrors([])
             return login(email, password).then(() => {
               setSubmitting(false)
-              window.location = '/'
+              router.push('/')
             }).catch(({ response: { data: { errors } } }) => {
               setFormErrors(errors)
             })
@@ -81,10 +83,11 @@ const Login = () => {
             handleSubmit,
             isSubmitting,
           }) => (
-            <div>
+            <form onSubmit={handleSubmit}>
               <CardContent>
                 <Typography
-                  gutterBottom className={classes.title}
+                  gutterBottom
+                  className={classes.title}
                   color={'textPrimary'}
                 >
                   Log In
@@ -127,7 +130,8 @@ const Login = () => {
                   <Grid item xs={12}>
                     <Button
                       className={classes.fullWidth}
-                      color={'primary'} disabled={isSubmitting}
+                      color={'primary'}
+                      disabled={isSubmitting}
                       onClick={handleSubmit}
                       size={'small'}
                       type={'submit'}
@@ -140,11 +144,20 @@ const Login = () => {
                     item className={classes.fullWidth}
                     xs={12}
                   >
-                    Need an account? <a href={'/register'} >Sign Up</a>
+                    Need an account?
+                    <a
+                      href={'/register'}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        router.push('/register')
+                      }}
+                    >
+                      Sign Up
+                    </a>
                   </Grid>
                 </Grid>
               </CardActions>
-            </div>
+            </form>
           )}
         </Formik>
       </Card>
