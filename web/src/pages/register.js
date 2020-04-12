@@ -1,5 +1,6 @@
-import FormErrors from '../utils/form-errors'
-import React, { useState } from 'react'
+import FormErrors from 'src/components/form-errors'
+import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
 import useAuth from 'src/hooks/use-auth'
 import {
   Button,
@@ -15,6 +16,137 @@ import {
 import { Formik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
+
+export default function Register() {
+  const classes = useStyles()
+  const router = useRouter()
+  const [formErrors, setFormErrors] = useState([])
+  const { isLoggedIn, register } = useAuth()
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push('/')
+    }
+  })
+
+  const initialFormValues = {
+    email: '',
+    password: '',
+    password2: '',
+  }
+
+  const onFormSubmit = ({ email, password }, { setSubmitting }) => {
+    return register(email, password).then(() => {
+      setSubmitting(false)
+      router.push('/')
+    }).catch(({ response: { data: { errors } } }) => {
+      setFormErrors(errors)
+    })
+  }
+
+  const onFormValidate = (values) => {
+    const errors = {}
+
+    if (!values.email) {
+      errors.email = 'Required'
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+      errors.email = 'Invalid email address'
+    }
+
+    if (values.password !== values.password2){
+      errors.password = 'Your passwords must match'
+    }
+
+    return errors
+  }
+
+  return (
+    <Container>
+      <Card className={classes.root}>
+        <Formik
+          initialValues={initialFormValues}
+          onSubmit={onFormSubmit}
+          validate={onFormValidate}
+        >
+          {(formProps) => (
+            <form onSubmit={formProps.handleSubmit}>
+              <CardContent>
+                <Typography
+                  gutterBottom className={classes.title}
+                  color={'textPrimary'}
+                >
+                  Register
+                </Typography>
+                <FormControl className={classes.formInputs}>
+                  <TextField
+                    aria-describedby={'email'}
+                    error={!!formProps.errors.email}
+                    helperText={formProps.errors.email && formProps.touched.email && formProps.errors.email}
+                    id={'email'}
+                    label={'Email'}
+                    name={'email'}
+                    onBlur={formProps.handleBlur} onChange={formProps.handleChange}
+                    value={formProps.values.email}
+                  />
+                </FormControl>
+                <FormControl className={classes.formInputs}>
+                  <TextField
+                    aria-describedby={'password'}
+                    error={!!formProps.errors.password}
+                    helperText={formProps.errors.password && formProps.touched.password && formProps.errors.password}
+                    label={'Password'}
+                    name={'password'}
+                    onBlur={formProps.handleBlur}
+                    onChange={formProps.handleChange}
+                    type={'password'}
+                    value={formProps.values.password}
+                  />
+                </FormControl>
+                <FormControl className={classes.formInputs}>
+                  <TextField
+                    aria-describedby={'password2'}
+                    error={!!formProps.errors.password}
+                    helperText={formProps.errors.password && formProps.touched.password && formProps.errors.password}
+                    label={'Password Again'}
+                    name={'password2'}
+                    onBlur={formProps.handleBlur}
+                    onChange={formProps.handleChange}
+                    type={'password'}
+                    value={formProps.values.password2}
+                  />
+                </FormControl>
+                <FormErrors errors={formErrors} />
+              </CardContent>
+              <CardActions>
+                <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    <Button
+                      className={classes.fullWidth}
+                      color={'primary'} disabled={formProps.isSubmitting}
+                      onClick={formProps.handleSubmit}
+                      size={'small'}
+                      type={'submit'}
+                      variant={'contained'}
+                    >
+                      Sign Up
+                    </Button>
+                  </Grid>
+                  <Grid
+                    item className={classes.fullWidth}
+                    xs={12}
+                  >
+                    {'Already have an account? '}
+                    <Link href={'/login'} >Log In</Link>
+                  </Grid>
+                </Grid>
+              </CardActions>
+            </form>
+          )}
+        </Formik>
+      </Card>
+    </Container>
+  )
+}
 
 const useStyles = makeStyles({
   root: {
@@ -34,149 +166,3 @@ const useStyles = makeStyles({
     textAlign: 'center',
   },
 })
-
-const Register = () => {
-  const classes = useStyles()
-  const router = useRouter()
-  const [formErrors, setFormErrors] = useState([])
-  const { register } = useAuth()
-
-  return (
-    <Container>
-      <Card className={classes.root}>
-        <Formik
-          initialValues={{
-            email: '',
-            password: '',
-            password2: '',
-          }}
-          onSubmit={({ email, password }, { setSubmitting }) => {
-            return register(email, password).then(() => {
-              setSubmitting(false)
-              router.push('/')
-            }).catch(({ response: { data: { errors } } }) => {
-              setFormErrors(errors)
-            })
-          }}
-          validate={(values) => {
-            const errors = {}
-            if (!values.email) {
-              errors.email = 'Required'
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
-              errors.email = 'Invalid email address'
-            }
-
-            if (values.password !== values.password2){
-              errors.password = 'Your passwords must match'
-            }
-            return errors
-          }}
-        >
-          {({
-            values,
-            errors,
-            touched,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            isSubmitting,
-          }) => (
-            <form onSubmit={handleSubmit}>
-              <CardContent>
-                <Typography
-                  gutterBottom className={classes.title}
-                  color={'textPrimary'}
-                >
-                  Register
-                </Typography>
-                <div>
-                  <FormControl className={classes.formInputs}>
-                    <TextField
-                      aria-describedby={'email'}
-                      error={!!errors.email}
-                      helperText={errors.email && touched.email && errors.email}
-                      id={'email'}
-                      label={'Email'}
-                      name={'email'}
-                      onBlur={handleBlur} onChange={handleChange}
-                      value={values.email}
-                    />
-
-                  </FormControl>
-                </div>
-
-                <div>
-                  <FormControl className={classes.formInputs}>
-                    <TextField
-                      aria-describedby={'password'}
-                      error={!!errors.password}
-                      helperText={errors.password && touched.password && errors.password}
-                      label={'Password'}
-                      name={'password'}
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      type={'password'}
-                      value={values.password}
-                    />
-                  </FormControl>
-                </div>
-
-                <div>
-                  <FormControl className={classes.formInputs}>
-                    <TextField
-                      aria-describedby={'password2'}
-                      error={!!errors.password}
-                      helperText={errors.password && touched.password && errors.password}
-                      label={'Password Again'}
-                      name={'password2'}
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      type={'password'}
-                      value={values.password2}
-                    />
-                  </FormControl>
-                </div>
-                <FormErrors errors={formErrors} />
-              </CardContent>
-              <CardActions>
-                <Grid container spacing={3}>
-                  <Grid item xs={12}>
-                    <Button
-                      className={classes.fullWidth}
-                      color={'primary'} disabled={isSubmitting}
-                      onClick={handleSubmit}
-                      size={'small'}
-                      type={'submit'}
-                      variant={'contained'}
-                    >
-                      Sign Up
-                    </Button>
-                  </Grid>
-                  <Grid
-                    item className={classes.fullWidth}
-                    xs={12}
-                  >
-                    Already have an account?
-                    <a
-                      href={'/login'}
-                      onClick={(e) => {
-                        e.preventDefault()
-                        router.push('/login')
-                      }}
-                    >Log In
-                    </a>
-                  </Grid>
-                </Grid>
-              </CardActions>
-            </form>
-          )}
-        </Formik>
-
-      </Card>
-    </Container>
-  )
-}
-
-export default Register
