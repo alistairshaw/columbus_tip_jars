@@ -1,4 +1,5 @@
-import FormErrors from '../utils/form-errors'
+import FormErrors from 'src/components/form-errors'
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import useAuth from 'src/hooks/use-auth'
 import {
@@ -15,6 +16,122 @@ import {
 import { Formik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
+
+export default function Login() {
+  const classes = useStyles()
+  const router = useRouter()
+  const [formErrors, setFormErrors] = useState([])
+  const { isLoggedIn, login } = useAuth()
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push('/')
+    }
+  })
+
+  const initialFormValues = {
+    email: '',
+    password: '',
+  }
+
+  const onFormSubmit = ({ email, password }, { setSubmitting }) => {
+    setFormErrors([])
+    return login(email, password).then(() => {
+      setSubmitting(false)
+      router.push('/')
+    }).catch(({ response: { data: { errors } } }) => {
+      setFormErrors(errors)
+    })
+  }
+
+  const onFormValidate = (values) => {
+    const errors = {}
+    if (!values.email) {
+      errors.email = 'Required'
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email) ) {
+      errors.email = 'Invalid email address'
+    }
+    return errors
+  }
+
+  return (
+    <Container>
+      <Card className={classes.root}>
+        <Formik
+          initialValues={initialFormValues}
+          onSubmit={onFormSubmit}
+          validate={onFormValidate}
+        >
+          {(formProps) => (
+            <form onSubmit={formProps.handleSubmit}>
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  className={classes.title}
+                  color={'textPrimary'}
+                >
+                  Log In
+                </Typography>
+                <FormControl className={classes.formInputs}>
+                  <TextField
+                    aria-describedby={'email'}
+                    error={!!formProps.errors.email}
+                    helperText={formProps.errors.email && formProps.touched.email && formProps.errors.email}
+                    id={'email'}
+                    label={'Email'}
+                    name={'email'}
+                    onBlur={formProps.handleBlur}
+                    onChange={formProps.handleChange}
+                    value={formProps.values.email}
+                  />
+                </FormControl>
+                <FormControl className={classes.formInputs}>
+                  <TextField
+                    aria-describedby={'password'}
+                    error={!!formProps.errors.password}
+                    helperText={formProps.errors.password && formProps.touched.password && formProps.errors.password}
+                    label={'Password'}
+                    name={'password'}
+                    onBlur={formProps.handleBlur}
+                    onChange={formProps.handleChange}
+                    type={'password'}
+                    value={formProps.values.password}
+                  />
+                </FormControl>
+                <FormErrors errors={formErrors} />
+              </CardContent>
+              <CardActions>
+                <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    <Button
+                      className={classes.fullWidth}
+                      color={'primary'}
+                      disabled={formProps.isSubmitting}
+                      onClick={formProps.handleSubmit}
+                      size={'small'}
+                      type={'submit'}
+                      variant={'contained'}
+                    >
+                      Log In
+                    </Button>
+                  </Grid>
+                  <Grid
+                    item
+                    className={classes.fullWidth}
+                    xs={12}
+                  >
+                    {'Need an account? '}
+                    <Link href={'/register'}>Sign Up</Link>
+                  </Grid>
+                </Grid>
+              </CardActions>
+            </form>
+          )}
+        </Formik>
+      </Card>
+    </Container>
+  )
+}
 
 const useStyles = makeStyles({
   root: {
@@ -34,136 +151,3 @@ const useStyles = makeStyles({
     textAlign: 'center',
   },
 })
-
-const Login = () => {
-  const classes = useStyles()
-  const router = useRouter()
-  const [formErrors, setFormErrors] = useState([])
-  const { isLoggedIn, login } = useAuth()
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push('/')
-    }
-  })
-
-  return (
-    <Container>
-      <Card className={classes.root}>
-        <Formik
-          initialValues={{
-            email: '',
-            password: '',
-          }}
-          onSubmit={({ email, password }, { setSubmitting }) => {
-            setFormErrors([])
-            return login(email, password).then(() => {
-              setSubmitting(false)
-              router.push('/')
-            }).catch(({ response: { data: { errors } } }) => {
-              setFormErrors(errors)
-            })
-          }}
-          validate={(values) => {
-            const errors = {}
-            if (!values.email) {
-              errors.email = 'Required'
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email) ) {
-              errors.email = 'Invalid email address'
-            }
-            return errors
-          }}
-        >
-          {({
-            values,
-            errors,
-            touched,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            isSubmitting,
-          }) => (
-            <form onSubmit={handleSubmit}>
-              <CardContent>
-                <Typography
-                  gutterBottom
-                  className={classes.title}
-                  color={'textPrimary'}
-                >
-                  Log In
-                </Typography>
-                <div>
-                  <FormControl className={classes.formInputs}>
-                    <TextField
-                      aria-describedby={'email'}
-                      error={!!errors.email}
-                      helperText={errors.email && touched.email && errors.email}
-                      id={'email'}
-
-                      label={'Email'}
-                      name={'email'}
-                      onBlur={handleBlur} onChange={handleChange}
-                      value={values.email}
-                    />
-                  </FormControl>
-                </div>
-
-                <div>
-                  <FormControl className={classes.formInputs}>
-                    <TextField
-                      aria-describedby={'password'}
-                      error={!!errors.password}
-                      helperText={errors.password && touched.password && errors.password}
-                      label={'Password'}
-                      name={'password'}
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      type={'password'}
-                      value={values.password}
-                    />
-                  </FormControl>
-                </div>
-                <FormErrors errors={formErrors} />
-              </CardContent>
-              <CardActions>
-                <Grid container spacing={3}>
-                  <Grid item xs={12}>
-                    <Button
-                      className={classes.fullWidth}
-                      color={'primary'}
-                      disabled={isSubmitting}
-                      onClick={handleSubmit}
-                      size={'small'}
-                      type={'submit'}
-                      variant={'contained'}
-                    >
-                      Log In
-                    </Button>
-                  </Grid>
-                  <Grid
-                    item className={classes.fullWidth}
-                    xs={12}
-                  >
-                    Need an account?
-                    <a
-                      href={'/register'}
-                      onClick={(e) => {
-                        e.preventDefault()
-                        router.push('/register')
-                      }}
-                    >
-                      Sign Up
-                    </a>
-                  </Grid>
-                </Grid>
-              </CardActions>
-            </form>
-          )}
-        </Formik>
-      </Card>
-    </Container>
-  )
-}
-
-export default Login
-
