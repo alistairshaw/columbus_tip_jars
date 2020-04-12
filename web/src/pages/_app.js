@@ -1,8 +1,9 @@
-import CssBaseline from '@material-ui/core/CssBaseline'
+import AuthProvider from 'src/contexts/auth-context'
 import Nav from 'src/components/nav'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import appTheme from 'src/utils/theme'
+import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider, makeStyles } from '@material-ui/core/styles'
 
 export default function App({ Component, pageProps }) {
@@ -16,16 +17,18 @@ export default function App({ Component, pageProps }) {
   }, [])
 
   return (
-    <ThemeProvider theme={appTheme}>
-      <CssBaseline />
-      <div className={classes.root} >
-        <Nav />
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Component {...pageProps} />
-        </main>
-      </div>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={appTheme}>
+        <CssBaseline />
+        <div className={classes.root} >
+          <Nav />
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <Component {...pageProps} />
+          </main>
+        </div>
+      </ThemeProvider>
+    </AuthProvider>
   )
 }
 

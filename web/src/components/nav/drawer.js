@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import useAuth from 'src/hooks/use-auth'
 import {
   Divider,
   Hidden,
@@ -16,9 +17,12 @@ import {
   PersonAdd as PersonAddIcon,
 } from '@material-ui/icons/'
 import { makeStyles } from '@material-ui/core/styles'
+import { useRouter } from 'next/router'
 
 export default function Drawer({ isOpen, onDrawerClose }) {
   const classes = useStyles()
+  const router = useRouter()
+  const { isLoggedIn, logout } = useAuth()
 
   const drawerContents = (
     <>
@@ -30,7 +34,13 @@ export default function Drawer({ isOpen, onDrawerClose }) {
       </div>
       <Divider />
       <List>
-        <ListItem button>
+        <ListItem
+          button
+          onClick={(e) => {
+            e.preventDefault()
+            router.push('/')
+          }}
+        >
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
@@ -44,20 +54,46 @@ export default function Drawer({ isOpen, onDrawerClose }) {
         </ListItem>
       </List>
       <Divider />
-      <List>
-        <ListItem button>
-          <ListItemIcon>
-            <InputIcon />
-          </ListItemIcon>
-          <ListItemText primary={'Sign In'} />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <PersonAddIcon />
-          </ListItemIcon>
-          <ListItemText primary={'Sign Up'} />
-        </ListItem>
-      </List>
+      {isLoggedIn ? (
+        <List>
+          <ListItem
+            button
+            onClick={(e) => {
+              e.preventDefault()
+              logout()
+            }}
+          >
+            <ListItemText primary={'Sign out'} />
+          </ListItem>
+        </List>
+      ) : (
+        <List>
+          <ListItem
+            button
+            onClick={(e) => {
+              e.preventDefault()
+              router.push('/login')
+            }}
+          >
+            <ListItemIcon>
+              <InputIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Sign In'} />
+          </ListItem>
+          <ListItem
+            button
+            onClick={(e) => {
+              e.preventDefault()
+              router.push('/register')
+            }}
+          >
+            <ListItemIcon>
+              <PersonAddIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Sign Up'} />
+          </ListItem>
+        </List>
+      )}
     </>
   )
 

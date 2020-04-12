@@ -1,10 +1,10 @@
 import IndexPage from 'src/pages/index'
 import React from 'react'
-import { render } from '@testing-library/react'
+import mount from 'test/support/mount'
 
 describe('<IndexPage />', () => {
   it('renders the text', () => {
-    const { getByText } = render(<IndexPage />)
+    const { getByText } = mount(<IndexPage />)
     expect(getByText('Welcome to the Columbus Tip Jars')).toBeInTheDocument()
   })
 })
