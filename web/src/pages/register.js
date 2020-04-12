@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core'
 import { Formik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles({
   root: {
@@ -36,6 +37,7 @@ const useStyles = makeStyles({
 
 const Register = () => {
   const classes = useStyles()
+  const router = useRouter()
   const [formErrors, setFormErrors] = useState([])
   const { register } = useAuth()
 
@@ -51,6 +53,7 @@ const Register = () => {
           onSubmit={({ email, password }, { setSubmitting }) => {
             return register(email, password).then(() => {
               setSubmitting(false)
+              router.push('/')
             }).catch(({ response: { data: { errors } } }) => {
               setFormErrors(errors)
             })
@@ -80,7 +83,7 @@ const Register = () => {
             handleSubmit,
             isSubmitting,
           }) => (
-            <div>
+            <form onSubmit={handleSubmit}>
               <CardContent>
                 <Typography
                   gutterBottom className={classes.title}
@@ -155,11 +158,17 @@ const Register = () => {
                     item className={classes.fullWidth}
                     xs={12}
                   >
-                    Already have an account? <a href={'/login'}>Log In</a>
+                    Already have an account? <a
+                      href={'/login'} onClick={(e) => {
+                        e.preventDefault()
+                        router.push('/login')
+                      }}
+                    >Log In
+                    </a>
                   </Grid>
                 </Grid>
               </CardActions>
-            </div>
+            </form>
           )}
         </Formik>
 
