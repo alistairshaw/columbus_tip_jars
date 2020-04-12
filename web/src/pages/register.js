@@ -1,6 +1,6 @@
-import AuthService from '../utils/auth-service'
 import FormErrors from '../utils/form-errors'
 import React, { useState } from 'react'
+import useAuth from 'src/hooks/use-auth'
 import {
   Button,
   Card,
@@ -14,7 +14,6 @@ import {
 } from '@material-ui/core'
 import { Formik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
-const auth = new AuthService()
 
 const useStyles = makeStyles({
   root: {
@@ -38,6 +37,7 @@ const useStyles = makeStyles({
 const Register = () => {
   const classes = useStyles()
   const [formErrors, setFormErrors] = useState([])
+  const { register } = useAuth()
 
   return (
     <Container>
@@ -49,7 +49,7 @@ const Register = () => {
             password2: '',
           }}
           onSubmit={({ email, password }, { setSubmitting }) => {
-            return auth.register(email, password).then(() => {
+            return register(email, password).then(() => {
               setSubmitting(false)
             }).catch(({ response: { data: { errors } } }) => {
               setFormErrors(errors)

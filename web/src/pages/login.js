@@ -1,6 +1,6 @@
-import AuthService from '../utils/auth-service'
 import FormErrors from '../utils/form-errors'
 import React, { useEffect, useState } from 'react'
+import useAuth from 'src/hooks/use-auth'
 import {
   Button,
   Card,
@@ -14,7 +14,6 @@ import {
 } from '@material-ui/core'
 import { Formik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
-const auth = new AuthService()
 
 const useStyles = makeStyles({
   root: {
@@ -38,13 +37,13 @@ const useStyles = makeStyles({
 const Login = () => {
   const classes = useStyles()
   const [formErrors, setFormErrors] = useState([])
+  const { isLoggedIn, login } = useAuth
 
   useEffect(() => {
-    // Update the document title using the browser API
-    if (auth.loggedIn()) {
+    if (isLoggedIn) {
       window.location = '/'
     }
-  }, [])
+  })
 
   return (
     <Container>
@@ -56,7 +55,7 @@ const Login = () => {
           }}
           onSubmit={({ email, password }, { setSubmitting }) => {
             setFormErrors([])
-            return auth.login(email, password).then(() => {
+            return login(email, password).then(() => {
               setSubmitting(false)
               window.location = '/'
             }).catch(({ response: { data: { errors } } }) => {
