@@ -4,12 +4,9 @@ import axios from 'axios'
 export default class AuthService {
   constructor(domain) {
     this.domain = domain || process.env.NEXT_PUBLIC_API_URL
-    this.fetch = this.fetch.bind(this)
-    this.login = this.login.bind(this)
-    this.getProfile = this.getProfile.bind(this)
   }
 
-  login(email, password) {
+  login = (email, password) => {
     // Get a token
     return axios.post(`${this.domain}/api/v1/auth/login`, {
       user: {
@@ -28,14 +25,14 @@ export default class AuthService {
       })
   }
 
-  logout() {
+  logout = () => {
     // Clear user token and profile data from localStorage
     LocalStorageService.removeItem('id_token')
     LocalStorageService.removeItem('profile')
     location.reload(true)
   }
 
-  register(email, password) {
+  register = (email, password) => {
     // Get a token
     return axios.post(`${this.domain}/api/v1/auth/register`, {
       user: {
@@ -48,34 +45,34 @@ export default class AuthService {
     })
   }
 
-  loggedIn() {
+  loggedIn = () => {
     // Checks if there is a saved token and it's still valid
     const token = this.getToken()
     return !!token
   }
 
-  setProfile(profile) {
+  setProfile = (profile) => {
     // Saves profile data to localStorage
     LocalStorageService.setItem('profile', JSON.stringify(profile))
   }
 
-  getProfile() {
+  getProfile = () => {
     // Retrieves the profile data from localStorage
     const profile = LocalStorageService.getItem('profile')
     return profile ? JSON.parse(profile) : {}
   }
 
-  setToken(idToken) {
+  setToken = (idToken) => {
     // Saves user token to localStorage
     LocalStorageService.setItem('id_token', idToken)
   }
 
-  getToken() {
+  getToken = () => {
     // Retrieves the user token from localStorage
     return LocalStorageService.getItem('id_token')
   }
 
-  _checkStatus(response) {
+  _checkStatus = (response) => {
     // raises an error in case response status is not a success
     if (response.status >= 200 && response.status < 300) {
       return response
@@ -86,7 +83,7 @@ export default class AuthService {
     }
   }
 
-  fetch(url, options) {
+  fetch = (url, options) => {
     // performs api calls sending the required authentication headers
     const headers = {
       'Accept': 'application/json',
