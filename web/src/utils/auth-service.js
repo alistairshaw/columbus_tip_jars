@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export default class AuthService {
   constructor(domain) {
-    this.domain = domain || 'http://localhost:3000'
+    this.domain = domain || process.env.NEXT_PUBLIC_API_URL
   }
 
   login = (email, password) => {
@@ -102,5 +102,28 @@ export default class AuthService {
     })
       .then(this._checkStatus)
       .then((response) => response.data)
+  }
+
+  updateUserProfile = (newProfile, data) => {
+    // POST /api/v1/user_profiles
+    // PUT /api/v1/user_profiles/:id
+    const method = newProfile ? 'POST' : 'PUT'
+    const url = newProfile ?
+      `${this.domain}/api/v1/user_profiles` :
+      `${this.domain}/api/v1/user_profiles/${data.id}`
+
+    return this.fetch(url, {
+      method,
+      data: {
+        user_profile: data,
+      },
+    })
+  }
+
+  getUserProfile = () => {
+    const profile = this.getProfile()
+    return this.fetch(`${this.domain}/api/v1/user_profiles/${profile.id}`, {
+      method: 'GET',
+    })
   }
 }

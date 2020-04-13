@@ -2,6 +2,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import useAuth from 'src/hooks/use-auth'
 import {
+  Business as BusinessIcon,
+  Help as HelpIcon,
+  Home as HomeIcon,
+  Input as InputIcon,
+  PersonAdd as PersonAddIcon,
+  AccountCircle as ProfileIcon,
+} from '@material-ui/icons/'
+import {
   Divider,
   Hidden,
   List,
@@ -10,12 +18,6 @@ import {
   ListItemText,
   Drawer as MaterialDrawer,
 } from '@material-ui/core'
-import {
-  Help as HelpIcon,
-  Home as HomeIcon,
-  Input as InputIcon,
-  PersonAdd as PersonAddIcon,
-} from '@material-ui/icons/'
 import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
 
@@ -46,6 +48,34 @@ export default function Drawer({ isOpen, onDrawerClose }) {
           </ListItemIcon>
           <ListItemText primary={'Home'} />
         </ListItem>
+        {isLoggedIn && (
+          <>
+            <ListItem
+              button
+              onClick={(e) => {
+                e.preventDefault()
+                router.push('/user-profile-edit')
+              }}
+            >
+              <ListItemIcon>
+                <ProfileIcon />
+              </ListItemIcon>
+              <ListItemText primary={'User Profile'} />
+            </ListItem>
+            <ListItem
+              button
+              onClick={(e) => {
+                e.preventDefault()
+                router.push('/business-profile-edit')
+              }}
+            >
+              <ListItemIcon>
+                <BusinessIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Business Profile'} />
+            </ListItem>
+          </>
+        )}
         <ListItem
           button
           onClick={(e) => {
