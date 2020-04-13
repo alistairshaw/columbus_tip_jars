@@ -19,16 +19,6 @@ import {
 import { Formik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
-
-function Alert(props) {
-  return (
-    <MuiAlert
-      elevation={6} variant={'filled'}
-      {...props}
-    />
-  )
-}
-
 const useStyles = makeStyles({
   title: {
     fontSize: 18,
@@ -112,9 +102,12 @@ const UserProfileEdit = () => {
                   className={classes.successBanner}
                   onClose={() => setSaveSuccess(false)} open={saveSuccess}
                 >
-                  <Alert severity={'success'}>
+                  <MuiAlert
+                    elevation={6} severity={'success'}
+                    variant={'filled'}
+                  >
                     Profile Updated
-                  </Alert>
+                  </MuiAlert>
                 </Snackbar>
                 <Typography
                   gutterBottom className={classes.title}
