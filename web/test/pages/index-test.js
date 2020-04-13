@@ -5,6 +5,6 @@ import mount from 'test/support/mount'
 describe('<IndexPage />', () => {
   it('renders the text', () => {
     const { getByText } = mount(<IndexPage />)
-    expect(getByText('Welcome to the Columbus Tip Jars')).toBeInTheDocument()
+    expect(getByText('Welcome to Columbus Tip Jars')).toBeInTheDocument()
   })
 })
