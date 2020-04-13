@@ -48,30 +48,34 @@ export default function Drawer({ isOpen, onDrawerClose }) {
           </ListItemIcon>
           <ListItemText primary={'Home'} />
         </ListItem>
-        <ListItem
-          button
-          onClick={(e) => {
-            e.preventDefault()
-            router.push('/user-profile-edit')
-          }}
-        >
-          <ListItemIcon>
-            <ProfileIcon />
-          </ListItemIcon>
-          <ListItemText primary={'User Profile'} />
-        </ListItem>
-        <ListItem
-          button
-          onClick={(e) => {
-            e.preventDefault()
-            router.push('/business-profile-edit')
-          }}
-        >
-          <ListItemIcon>
-            <BusinessIcon />
-          </ListItemIcon>
-          <ListItemText primary={'Business Profile'} />
-        </ListItem>
+        {isLoggedIn && (
+          <>
+            <ListItem
+              button
+              onClick={(e) => {
+                e.preventDefault()
+                router.push('/user-profile-edit')
+              }}
+            >
+              <ListItemIcon>
+                <ProfileIcon />
+              </ListItemIcon>
+              <ListItemText primary={'User Profile'} />
+            </ListItem>
+            <ListItem
+              button
+              onClick={(e) => {
+                e.preventDefault()
+                router.push('/business-profile-edit')
+              }}
+            >
+              <ListItemIcon>
+                <BusinessIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Business Profile'} />
+            </ListItem>
+          </>
+        )}
         <ListItem
           button
           onClick={(e) => {
