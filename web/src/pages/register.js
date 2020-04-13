@@ -136,7 +136,9 @@ export default function Register() {
                     xs={12}
                   >
                     {'Already have an account? '}
-                    <Link href={'/login'} >Log In</Link>
+                    <Link href={'/login'} >
+                      <a>Log In</a>
+                    </Link>
                   </Grid>
                 </Grid>
               </CardActions>

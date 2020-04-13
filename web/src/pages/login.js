@@ -121,7 +121,9 @@ export default function Login() {
                     xs={12}
                   >
                     {'Need an account? '}
-                    <Link href={'/register'}>Sign Up</Link>
+                    <Link href={'/register'}>
+                      <a>Sign Up</a>
+                    </Link>
                   </Grid>
                 </Grid>
               </CardActions>
