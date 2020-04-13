@@ -42,10 +42,11 @@ module Api
 
       def user_profile_params
         params.require(:user_profile).permit(
-          :user_name,
-          :photo_url,
+          :images,
           :industry,
-          :nickname
+          :nickname,
+          :photo_url,
+          :user_name,
         ).to_h.deep_symbolize_keys.merge(user_id: current_user.id)
       end
     end
