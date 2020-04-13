@@ -46,7 +46,13 @@ export default function Drawer({ isOpen, onDrawerClose }) {
           </ListItemIcon>
           <ListItemText primary={'Home'} />
         </ListItem>
-        <ListItem button>
+        <ListItem
+          button
+          onClick={(e) => {
+            e.preventDefault()
+            router.push('/about')
+          }}
+        >
           <ListItemIcon>
             <HelpIcon />
           </ListItemIcon>
