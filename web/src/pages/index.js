@@ -1,13 +1,12 @@
 import React from 'react'
-import useAuth from 'src/hooks/use-auth'
 import {
+  BottomNavigation,
+  BottomNavigationAction,
   Box,
   Button,
   Grid,
-  Typography,
-  BottomNavigation,
-  BottomNavigationAction,
   Icon,
+  Typography,
 } from '@material-ui/core'
 import { GitHub as GitHubIcon } from '@material-ui/icons/'
 
@@ -33,51 +32,53 @@ const data = [
     occupation: 'Makeup Artist',
     description: '10 months ago',
   },
-];
+]
 
-function CSCLogoIcon(props) {
-  return(
+function CSCLogoIcon() {
+  return (
     <Icon>
-      <img style={{ width: 24, height: 24 }} src={"/logos/cscbus_logo_square.png"} />
+      <img src={'/logos/cscbus_logo_square.png'} style={{ width: 24, height: 24 }} />
     </Icon>
   )
 }
 
 export default function IndexPage() {
-  const { profile } = useAuth()
-
-  // TODO: Remove after testing on domain
-  // eslint-disable-next-line
-  console.log({ apiUrl: process.env.NEXT_PUBLIC_API_URL })
-
   return (
     <div>
-      <Typography variant="h2">Welcome to Columbus Tip Jars</Typography>
-      <Typography variant="h6">Provide financial support to cosmetic industry workers who are out of work due to COVID-19.</Typography>
+      <Typography variant={'h2'}>Welcome to Columbus Tip Jars</Typography>
+      <Typography variant={'h6'}>Provide financial support to cosmetic industry workers who are out of work due to COVID-19.</Typography>
       <Box mt={4}>
-        <Typography variant="h5">FEATURED</Typography>
+        <Typography variant={'h5'}>FEATURED</Typography>
       </Box>
-      <Grid container wrap="wrap">
+      <Grid container wrap={'wrap'}>
         {data.map((item, index) => (
-          <Box key={index} width={400} marginRight={2} my={5}>
-            <img style={{ width: 400, height: 300 }} alt={item.salon} src={item.src} />
+          <Box
+            key={index} marginRight={2}
+            my={5} width={400}
+          >
+            <img
+              alt={item.salon} src={item.src}
+              style={{ width: 400, height: 300 }}
+            />
             <Box pr={2}>
-              <Typography variant="h5">{item.employee}</Typography>
-              <Typography gutterBottom variant="body2">{`${item.occupation} - ${item.salon}`}</Typography>
-              <Button variant="contained">Tip Jar</Button>
+              <Typography variant={'h5'}>{item.employee}</Typography>
+              <Typography gutterBottom variant={'body2'}>{`${item.occupation} - ${item.salon}`}</Typography>
+              <Button variant={'contained'}>Tip Jar</Button>
             </Box>
           </Box>
         ))}
       </Grid>
-      <Button variant="contained" color="primary">View all</Button>
-      <BottomNavigation showLabels style={{
-        width: '100%',
-        position: 'fixed',
-        bottom: 0,
-      }}>
-        <BottomNavigationAction label="GitHub" icon={(<GitHubIcon />)} />
-        <BottomNavigationAction label="Can't Stop Columbus" icon={(<CSCLogoIcon />)} />
+      <Button color={'primary'} variant={'contained'}>View all</Button>
+      <BottomNavigation
+        showLabels style={{
+          width: '100%',
+          position: 'fixed',
+          bottom: 0,
+        }}
+      >
+        <BottomNavigationAction icon={(<GitHubIcon />)} label={'GitHub'} />
+        <BottomNavigationAction icon={(<CSCLogoIcon />)} label={'Can\'t Stop Columbus'} />
       </BottomNavigation>
     </div>
-  );
+  )
 }

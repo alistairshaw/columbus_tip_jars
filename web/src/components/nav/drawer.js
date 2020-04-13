@@ -24,7 +24,7 @@ import { useRouter } from 'next/router'
 export default function Drawer({ isOpen, onDrawerClose }) {
   const classes = useStyles()
   const router = useRouter()
-  const { isLoggedIn, logout } = useAuth()
+  const { isLoggedIn, logout, profile } = useAuth()
 
   const drawerContents = (
     <>
@@ -42,6 +42,7 @@ export default function Drawer({ isOpen, onDrawerClose }) {
             e.preventDefault()
             router.push('/')
           }}
+          selected={router.pathname === '/'}
         >
           <ListItemIcon>
             <HomeIcon />
@@ -82,6 +83,7 @@ export default function Drawer({ isOpen, onDrawerClose }) {
             e.preventDefault()
             router.push('/about')
           }}
+          selected={router.pathname === '/about'}
         >
           <ListItemIcon>
             <HelpIcon />
@@ -92,6 +94,9 @@ export default function Drawer({ isOpen, onDrawerClose }) {
       <Divider />
       {isLoggedIn ? (
         <List>
+          <ListItem>
+            <ListItemText primary={`Logged in as ${profile?.email}`} />
+          </ListItem>
           <ListItem
             button
             onClick={(e) => {
@@ -110,6 +115,7 @@ export default function Drawer({ isOpen, onDrawerClose }) {
               e.preventDefault()
               router.push('/login')
             }}
+            selected={router.pathname === '/login'}
           >
             <ListItemIcon>
               <InputIcon />
@@ -122,6 +128,7 @@ export default function Drawer({ isOpen, onDrawerClose }) {
               e.preventDefault()
               router.push('/register')
             }}
+            selected={router.pathname === '/register'}
           >
             <ListItemIcon>
               <PersonAddIcon />
