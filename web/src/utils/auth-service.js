@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export default class AuthService {
   constructor(domain) {
-    this.domain = domain || process.env.NEXT_PUBLIC_API_URL
+    this.domain = domain || 'http://localhost:3000'
   }
 
   login = (email, password) => {

@@ -1,12 +1,12 @@
 const path = require('path')
-const withNextEnv = require('next-env')()
 
-require('dotenv-load')()
-
-module.exports = withNextEnv({
+module.exports = {
   webpack: (config) => {
     config.resolve.alias['src'] = path.join(__dirname, 'src')
 
     return config
   },
-})
+  env: {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+  },
+}
