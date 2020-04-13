@@ -78,11 +78,12 @@ const UserProfileEdit = () => {
         <Formik
           initialValues={formValues}
           onSubmit={(formData, { setSubmitting }) => {
-            const newProfile = !!formData.id
+            const newProfile = !formData.id
             return updateUserProfile(newProfile, formData).then(() => {
               setSubmitting(false)
-            }).catch(({ response: { data: { errors } } }) => {
+            }).catch(({ response: { data: { errors }} }) => {
               setFormErrors(errors)
+              setSubmitting(false)
             })
           }}
           validate={(values) => {

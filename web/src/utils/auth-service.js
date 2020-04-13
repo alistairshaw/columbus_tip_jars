@@ -107,12 +107,12 @@ export default class AuthService {
   updateUserProfile = (newProfile, data) => {
     // POST /api/v1/user_profiles
     // PUT /api/v1/user_profiles/:id
-    const method = newProfile ? 'PUT' : 'POST'
+    const method = newProfile ? 'POST' : 'PUT'
     const url = newProfile ?
-      `${this.domain}/api/v1/user_profiles/${data.id}` :
-      `${this.domain}/api/v1/user_profiles`
+      `${this.domain}/api/v1/user_profiles` :
+      `${this.domain}/api/v1/user_profiles/${data.id}`
 
-    this.fetch(url, {
+    return this.fetch(url, {
       method,
       data: {
         user_profile: data,
