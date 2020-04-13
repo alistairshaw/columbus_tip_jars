@@ -5,7 +5,11 @@ import {
   Button,
   Grid,
   Typography,
+  BottomNavigation,
+  BottomNavigationAction,
+  Icon,
 } from '@material-ui/core'
+import { GitHub as GitHubIcon } from '@material-ui/icons/'
 
 const data = [
   {
@@ -31,6 +35,14 @@ const data = [
   },
 ];
 
+function CSCLogoIcon(props) {
+  return(
+    <Icon>
+      <img style={{ width: 24, height: 24 }} src={"/logos/cscbus_logo_square.png"} />
+    </Icon>
+  )
+}
+
 export default function IndexPage() {
   const { profile } = useAuth()
 
@@ -40,7 +52,7 @@ export default function IndexPage() {
 
   return (
     <div>
-      <Typography variant="h2">Welcome to Columbus Tip Jars {profile?.email}</Typography>
+      <Typography variant="h2">Welcome to Columbus Tip Jars</Typography>
       <Typography variant="h6">Provide financial support to cosmetic industry workers who are out of work due to COVID-19.</Typography>
       <Box mt={4}>
         <Typography variant="h5">FEATURED</Typography>
@@ -58,6 +70,14 @@ export default function IndexPage() {
         ))}
       </Grid>
       <Button variant="contained" color="primary">View all</Button>
+      <BottomNavigation showLabels style={{
+        width: '100%',
+        position: 'fixed',
+        bottom: 0,
+      }}>
+        <BottomNavigationAction label="GitHub" icon={(<GitHubIcon />)} />
+        <BottomNavigationAction label="Can't Stop Columbus" icon={(<CSCLogoIcon />)} />
+      </BottomNavigation>
     </div>
   );
 }
