@@ -1,6 +1,9 @@
-import AuthService from '../utils/auth-service'
+import Backdrop from '@material-ui/core/Backdrop'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import FormErrors from '../components/form-errors'
+import MuiAlert from '@material-ui/lab/Alert'
 import React, { useEffect, useState } from 'react'
+import Snackbar from '@material-ui/core/Snackbar'
 import useAuth from '../hooks/use-auth'
 import {
   Button,
@@ -17,11 +20,16 @@ import { Formik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
 
+function Alert(props) {
+  return (
+    <MuiAlert
+      elevation={6} variant={'filled'}
+      {...props}
+    />
+  )
+}
+
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 500,
-    margin: '30px auto 0',
-  },
   title: {
     fontSize: 18,
   },
@@ -34,16 +42,19 @@ const useStyles = makeStyles({
     width: '100%',
     textAlign: 'center',
   },
+  successBanner: {
+    top: 85,
+  },
 })
 
 const UserProfileEdit = () => {
   const classes = useStyles()
   const [formErrors, setFormErrors] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [saveSuccess, setSaveSuccess] = useState(false)
   const [formValues, setFormValues] = useState({
     id: null,
     user_name: '',
-    photo_url: '',
   })
   const router = useRouter()
   const { isLoggedIn, getUserProfile, updateUserProfile } = useAuth()
@@ -51,12 +62,13 @@ const UserProfileEdit = () => {
   useEffect(() => {
     if (isLoggedIn){
       // If user is logged in, show loading & fetch their profile data
-      console.log('get profile info')
-      getUserProfile().then( (res) => {
-        console.log('getUserProfile res', res)
+      getUserProfile().then( ({ resource }) => {
+        setFormValues({
+          id: resource.id,
+          user_name: resource.user_name,
+        })
         setIsLoading(false)
-      }).catch( (err) => {
-        console.log('getUserProfile err', err)
+      }).catch( () => {
         setIsLoading(false)
       })
     } else {
@@ -64,37 +76,46 @@ const UserProfileEdit = () => {
       router.push('/login')
     }
 
-  }, [isLoggedIn, router, getUserProfile])
-
-  if(isLoading){
-    return (
-      <span>Loading...</span>
-    )
-  }
+  }, [isLoggedIn, router, getUserProfile, setFormValues])
 
   return (
+
     <Container>
-      <Card className={classes.root}>
+      <Backdrop className={classes.backdrop} open={isLoading}>
+        <CircularProgress color={'inherit'} />
+      </Backdrop>
+      <Card >
         <Formik
+          enableReinitialize={true}
           initialValues={formValues}
           onSubmit={(formData, { setSubmitting }) => {
+            setIsLoading(true)
+            setFormErrors([])
             const newProfile = !formData.id
             return updateUserProfile(newProfile, formData).then(() => {
               setSubmitting(false)
-            }).catch(({ response: { data: { errors }} }) => {
+              setIsLoading(false)
+              setSaveSuccess(true)
+            }).catch(({ response: { data: { errors } } }) => {
               setFormErrors(errors)
               setSubmitting(false)
+              setIsLoading(false)
             })
-          }}
-          validate={(values) => {
-            const errors = {}
-            // TODO Add Form Validation Here
-            return errors
           }}
         >
           {(formProps) => (
             <div>
               <CardContent>
+                <Snackbar
+                  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                  autoHideDuration={6000}
+                  className={classes.successBanner}
+                  onClose={() => setSaveSuccess(false)} open={saveSuccess}
+                >
+                  <Alert severity={'success'}>
+                    Profile Updated
+                  </Alert>
+                </Snackbar>
                 <Typography
                   gutterBottom className={classes.title}
                   color={'textPrimary'}
@@ -116,23 +137,6 @@ const UserProfileEdit = () => {
                     />
                   </FormControl>
                 </div>
-
-                <div>
-                  <FormControl className={classes.formInputs}>
-                    <TextField
-                      aria-describedby={'industry'}
-                      error={!!formProps.errors.industry}
-                      helperText={formProps.errors.industry && formProps.touched.industry && formProps.errors.industry}
-                      id={'industry'}
-                      label={'Photo'}
-                      name={'industry'}
-                      onChange={formProps.handleChange}
-                      onBlur={formProps.handleBlur}
-                      value={formProps.values.industry}
-                    />
-                  </FormControl>
-                </div>
-
                 <FormErrors errors={formErrors} />
               </CardContent>
               <CardActions>
