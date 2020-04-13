@@ -112,6 +112,8 @@ export default class AuthService {
       `${this.domain}/api/v1/user_profiles` :
       `${this.domain}/api/v1/user_profiles/${data.id}`
 
+    console.log('data', data.image)
+
     return this.fetch(url, {
       method,
       data: {

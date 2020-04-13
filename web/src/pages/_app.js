@@ -1,10 +1,12 @@
-import AuthProvider from 'src/contexts/auth-context'
+import AuthProvider from 'src/contexts/auth-context' // Added b/c of https://github.com/Yuvaleros/material-ui-dropzone/issues/77
 import Nav from 'src/components/nav'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import appTheme from 'src/utils/theme'
 import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider, makeStyles } from '@material-ui/core/styles'
+import 'core-js-pure/stable'
+import 'regenerator-runtime/runtime'
 
 export default function App({ Component, pageProps }) {
   const classes = useStyles()

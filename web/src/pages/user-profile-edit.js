@@ -1,6 +1,7 @@
 import Backdrop from '@material-ui/core/Backdrop'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import FormErrors from '../components/form-errors'
+import FormLabel from '@material-ui/core/FormLabel'
 import MuiAlert from '@material-ui/lab/Alert'
 import React, { useEffect, useState } from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
@@ -16,9 +17,11 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core'
+import { DropzoneArea } from 'material-ui-dropzone'
 import { Formik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
+
 const useStyles = makeStyles({
   title: {
     fontSize: 18,
@@ -35,6 +38,10 @@ const useStyles = makeStyles({
   successBanner: {
     top: 85,
   },
+  formLabel: {
+    fontSize: 12,
+    marginBottom: 10,
+  },
 })
 
 const UserProfileEdit = () => {
@@ -46,6 +53,7 @@ const UserProfileEdit = () => {
     id: null,
     user_name: '',
   })
+
   const router = useRouter()
   const { isLoggedIn, getUserProfile, updateUserProfile } = useAuth()
 
@@ -67,6 +75,14 @@ const UserProfileEdit = () => {
     }
 
   }, [isLoggedIn, router, getUserProfile, setFormValues])
+
+  const handleChange = (files) => {
+    console.log('image upload', files)
+    setFormValues({
+      ...formValues,
+      image: files,
+    })
+  }
 
   return (
 
@@ -97,7 +113,7 @@ const UserProfileEdit = () => {
             <div>
               <CardContent>
                 <Snackbar
-                  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                  anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                   autoHideDuration={6000}
                   className={classes.successBanner}
                   onClose={() => setSaveSuccess(false)} open={saveSuccess}
@@ -115,7 +131,7 @@ const UserProfileEdit = () => {
                 >
                   Edit Your User Profile
                 </Typography>
-                <div>
+                <form onSubmit={formProps.handleSubmit}>
                   <FormControl className={classes.formInputs}>
                     <TextField
                       aria-describedby={'user_name'}
@@ -129,7 +145,16 @@ const UserProfileEdit = () => {
                       value={formProps.values.user_name}
                     />
                   </FormControl>
-                </div>
+                  <FormControl className={classes.formInputs}>
+                    <FormLabel className={classes.formLabel}>
+                      Upload a Photo
+                    </FormLabel>
+                    <DropzoneArea
+                      onChange={() => handleChange(this)}
+                    />
+                  </FormControl>
+
+                </form>
                 <FormErrors errors={formErrors} />
               </CardContent>
               <CardActions>
