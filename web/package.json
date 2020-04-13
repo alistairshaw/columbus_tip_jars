@@ -23,8 +23,7 @@
     "next": "9.3.4",
     "next-env": "^1.1.1",
     "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "react-images-upload": "^1.2.8"
+    "react-dom": "16.13.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.5.0",
