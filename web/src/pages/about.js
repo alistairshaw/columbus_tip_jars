@@ -11,7 +11,6 @@ export default function AboutPage() {
           We exist to provide ways for cosmetic industry workers, affected by COVID-19, to receive financial support during these tough times.
         </Typography>
       </Box>
-
     </Container>
   )
 }

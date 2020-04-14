@@ -9,10 +9,12 @@ import {
   Typography,
 } from '@material-ui/core'
 import { GitHub as GitHubIcon } from '@material-ui/icons/'
+import { useRouter } from 'next/router'
 
 const data = [
   {
     src: '/images/salon-spa-example.jpg',
+    userProfileId: '1',
     salon: 'Relax Day Spa',
     employee: 'Hannah Johnson',
     occupation: 'Masseuse',
@@ -21,12 +23,14 @@ const data = [
   {
     src: '/images/salon-hair-example.jpg',
     salon: 'Bella Hair Salon',
+    userProfileId: '1',
     employee: 'Amy Davis',
     occupation: 'Hairdresser',
     description: '3 years ago',
   },
   {
     src: '/images/salon-makeup-example.jpg',
+    userProfileId: '1',
     salon: 'Lavish Beauty Salon',
     employee: 'Deja Williams',
     occupation: 'Makeup Artist',
@@ -43,6 +47,7 @@ function CSCLogoIcon() {
 }
 
 export default function IndexPage() {
+  const router = useRouter()
   return (
     <div>
       <Typography variant={'h2'}>Welcome to Columbus Tip Jars</Typography>
@@ -63,7 +68,12 @@ export default function IndexPage() {
             <Box pr={2}>
               <Typography variant={'h5'}>{item.employee}</Typography>
               <Typography gutterBottom variant={'body2'}>{`${item.occupation} - ${item.salon}`}</Typography>
-              <Button variant={'contained'}>Tip Jar</Button>
+              <Button
+                onClick={() => {
+                  router.push(`/users/${item.userProfileId}`)
+                }} variant={'contained'}
+              >Tip Jar
+              </Button>
             </Box>
           </Box>
         ))}

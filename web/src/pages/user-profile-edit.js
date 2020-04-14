@@ -1,10 +1,10 @@
 import Backdrop from '@material-ui/core/Backdrop'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import FormErrors from '../components/form-errors'
+import FormErrors from 'src/components/form-errors'
 import MuiAlert from '@material-ui/lab/Alert'
 import React, { useEffect, useState } from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
-import useAuth from '../hooks/use-auth'
+import useAuth from 'src/hooks/use-auth'
 import {
   Button,
   Card,
@@ -19,6 +19,7 @@ import {
 import { Formik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
+
 const useStyles = makeStyles({
   title: {
     fontSize: 18,

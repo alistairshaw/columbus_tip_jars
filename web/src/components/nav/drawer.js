@@ -53,6 +53,7 @@ export default function Drawer({ isOpen, onDrawerClose }) {
           <>
             <ListItem
               button
+              selected={router.pathname === '/user-profile-edit'}
               onClick={(e) => {
                 e.preventDefault()
                 router.push('/user-profile-edit')
@@ -65,6 +66,7 @@ export default function Drawer({ isOpen, onDrawerClose }) {
             </ListItem>
             <ListItem
               button
+              selected={router.pathname === '/business-profile-edit'}
               onClick={(e) => {
                 e.preventDefault()
                 router.push('/business-profile-edit')
