@@ -1,5 +1,7 @@
 # Looking Good Columbus
 
+![Looking Good CI](https://github.com/asleepysheepy/columbus_tip_jars/workflows/Looking%20Good%20CI/badge.svg)
+
 Looking Good Columbus is a tip jar platform for beauty industry workers (Barbers/Hair Stylists, Makeup Artists, Nail Salon Workers, etc.) affected by COVID-19.
 
 ## Getting Started
