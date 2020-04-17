@@ -22,11 +22,11 @@ gem "webpacker", "~> 4.0"
 gem "bootsnap", ">= 1.4.2", require: false
 
 group :development, :test do
-  gem "pry-byebug"
   gem "database_cleaner"
   gem "dotenv-rails"
   gem "factory_bot_rails"
   gem "faker"
+  gem "pry-byebug"
   gem "rspec-rails"
   gem "rubocop-daemon", require: false
   gem "rubocop-rails", require: false
@@ -34,11 +34,11 @@ group :development, :test do
 end
 
 group :development do
-  gem 'annotate'
+  gem "annotate"
   gem "listen", ">= 3.0.5", "< 3.2"
-  gem "web-console", ">= 3.3.0"
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
+  gem "web-console", ">= 3.3.0"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
