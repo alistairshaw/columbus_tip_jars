@@ -1,32 +1,48 @@
-# README
+# Columbus Tip Jars API Server
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+![API CI](https://github.com/asleepysheepy/columbus_tip_jars/workflows/API%20CI/badge.svg)
 
-Things you may want to cover:
+API Backend for the the Can't Stop Columbus tip jar websites
 
-* Ruby version
+## Getting Started
+#### Prerequisites
+Ruby - 2.6
+Docker
+docker-compose
+bundler
 
-* System dependencies
+#### Install dependencies
+```
+bundle install
+```
 
-* Configuration
+#### Setup the databse
+```
+docker-compose up
+bundle exec rails db:setup
+```
 
-* Database creation
+#### Start the server
+```
+bundle exec rails server
+```
 
-* Database initialization
-#### Install FE dependencies
-```yarn install```
-#### Install Gems
-```bundle install```
-#### Setup DB
-```bundle exec rails db:setup```
-#### Start Server
-```bundle exec rails server```
+#### To run the test suite 
+```
+bundle exec rspec
+```
 
-* How to run the test suite
+#### To run the linter
+```
+bundle exec rubocop
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Authors
+* [Brandon Tolle](https://github.com/tollebrandon)
+* [Corey Synder](https://github.com/coreysnyder)
+* [Devin Riegle](https://github.com/deriegle)
+* [Katie Macke](https://github.com/asleepysheepy)
+* [Katrina Theodosopoulos](https://github.com/GreeKatrina)
 
-* Deployment instructions
 
-* ...
+This project was made by [Can't Stop Columbus](https://cantstopcolumbus.com/).
