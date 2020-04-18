@@ -6,7 +6,8 @@ Looking Good Columbus is a tip jar platform for beauty industry workers (Barbers
 
 ## Getting Started
 #### Prerequisites
-You'll need yarn
+* Node
+* Yarn
 
 #### Install dependencies
 ```

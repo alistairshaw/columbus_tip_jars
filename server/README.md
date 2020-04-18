@@ -6,10 +6,10 @@ API Backend for the the Can't Stop Columbus tip jar websites
 
 ## Getting Started
 #### Prerequisites
-Ruby - 2.6
-Docker
-docker-compose
-bundler
+* Ruby - 2.6
+* Docker
+* docker-compose
+* bundler
 
 #### Install dependencies
 ```
