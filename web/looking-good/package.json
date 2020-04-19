@@ -17,6 +17,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.49",
     "axios": "^0.19.2",
+    "better-recase": "^0.2.3",
     "clsx": "^1.1.0",
     "dotenv-load": "^2.0.0",
     "formik": "^2.1.4",

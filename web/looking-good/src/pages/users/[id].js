@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import Recase from 'better-recase'
 import fetch from 'isomorphic-unfetch'
 
 export default function UserProfilePage({ userProfile }) {
@@ -11,27 +12,26 @@ export default function UserProfilePage({ userProfile }) {
 
   return (
     <div>
-      <h1>{userProfile.user_name}</h1>
-      {userProfile.photo_url ? <img src={userProfile.photo_url} /> : null}
+      <h1>{userProfile.userName}</h1>
+      {userProfile.photoUrl ? <img src={userProfile.photoUrl} /> : null}
     </div>
   )
 }
 
 UserProfilePage.propTypes = {
   userProfile: PropTypes.shape({
-    user_name: PropTypes.string.isRequired,
-    photo_url: PropTypes.string,
+    userName: PropTypes.string.isRequired,
+    photoUrl: PropTypes.string,
     industry: PropTypes.string,
     nickname: PropTypes.string,
-    user_id: PropTypes.number.isRequired,
-    created_at: PropTypes.instanceOf(Date).isRequired,
-    updated_at: PropTypes.instanceOf(Date).isRequired,
+    userId: PropTypes.number.isRequired,
+    createdAt: PropTypes.instanceOf(Date).isRequired,
+    updatedAt: PropTypes.instanceOf(Date).isRequired,
   }),
 }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/user_profiles/${params.id}`)
-
   if (!response.ok) {
     return {
       props: {},
@@ -39,17 +39,9 @@ export async function getStaticProps({ params }) {
   }
 
   const data = await response.json()
+  const userProfile = Recase.camelCopy(data.resource)
 
   return {
-    props: {
-      userProfile: data.resource,
-    },
-  }
-}
-
-export function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: true,
+    props: { userProfile },
   }
 }
