@@ -4,5 +4,5 @@ Columbus Tip Jars is a project by [Can't Stop Columbus](https://cantstopcolumbus
 
 Columbus Tip Jars consists of the following projects:
 
- - [An API server](https://github.com/Cant-Stop-Columbus/columbus_tip_jars/tree/master/server): A Ruby/Rails backend which handle all server logic for tip jars.
- - [Looking Good Cbus](https://github.com/Cant-Stop-Columbus/columbus_tip_jars/tree/master/web/looking-good): A website for beauty industry workers (Barbers/Hair Stylists, Makeup Artists, Nail Salon Workers, etc.) affected by COVID-19.
+ - [An API server](https://github.com/asleepysheepy/columbus_tip_jars/tree/master/server): A Ruby/Rails backend which handle all server logic for tip jars.
+ - [Looking Good Cbus](https://github.com/asleepysheepy/columbus_tip_jars/tree/master/web/looking-good): A website for beauty industry workers (Barbers/Hair Stylists, Makeup Artists, Nail Salon Workers, etc.) affected by COVID-19.
