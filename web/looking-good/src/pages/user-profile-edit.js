@@ -6,10 +6,10 @@ import {
   Container,
   FormControl,
   Grid,
-  makeStyles,
   Snackbar,
   TextField,
 } from '@material-ui/core'
+import makeStyles from '@material-ui/core/styles/makeStyles'
 import MuiAlert from '@material-ui/lab/Alert'
 import { Formik } from 'formik'
 import { useRouter } from 'next/router'
