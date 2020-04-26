@@ -33,14 +33,14 @@ const useStyles = makeStyles({
       padding: '10px',
       display: 'none',
       fontWeight: 'bold',
-      borderRadius: '3px'
+      borderRadius: '3px',
     },
     '&:hover': {
       cursor: 'pointer',
       '& p': {
-        display: 'block'
-      }
-    }
+        display: 'block',
+      },
+    },
   },
   formInputs: {
     width: '100%',
@@ -69,15 +69,15 @@ const UserProfileEdit = () => {
     specialty: '',
     tip_url: '',
     video_url: '',
-    blurb: ''
+    blurb: '',
   })
   const router = useRouter()
-  const {isLoggedIn, getUserProfile, updateUserProfile} = useAuth()
+  const { isLoggedIn, getUserProfile, updateUserProfile } = useAuth()
 
   useEffect(() => {
     if (isLoggedIn) {
       // If user is logged in, show loading & fetch their profile data
-      getUserProfile().then(({resource}) => {
+      getUserProfile().then(({ resource }) => {
         setFormValues({
           id: resource.id,
           user_name: resource.user_name,
@@ -109,7 +109,7 @@ const UserProfileEdit = () => {
       <Formik
         enableReinitialize={true}
         initialValues={formValues}
-        onSubmit={(formData, {setSubmitting}) => {
+        onSubmit={(formData, { setSubmitting }) => {
           setIsLoading(true)
           setFormErrors([])
           const newProfile = !formData.id
@@ -121,10 +121,10 @@ const UserProfileEdit = () => {
               ...formValues,
               ...response.resource,
               avatar: undefined,
-              profile_pic: response.resource.avatar
+              profile_pic: response.resource.avatar,
             }
             setFormValues(newFormValues)
-          }).catch(({response: {data: {errors}}}) => {
+          }).catch(({ response: { data: { errors } } }) => {
             setFormErrors(errors)
             setSubmitting(false)
             setIsLoading(false)
@@ -134,7 +134,7 @@ const UserProfileEdit = () => {
         {(formProps) => (
           <div>
             <Snackbar
-              anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
               autoHideDuration={6000}
               className={classes.successBanner}
               onClose={() => setSaveSuccess(false)} open={saveSuccess}
@@ -147,7 +147,7 @@ const UserProfileEdit = () => {
               </MuiAlert>
             </Snackbar>
             <h1>Hello Gorgeous!</h1>
-            <h2 style={{marginBottom: 60}}>Record your at-home style advice for everyone missing your
+            <h2 style={{ marginBottom: 60 }}>Record your at-home style advice for everyone missing your
               smiling face</h2>
             <div>
               <Grid container spacing={3}>
@@ -158,9 +158,9 @@ const UserProfileEdit = () => {
                               className={classes.avatar}/>
                       <p>Click to Update</p>
                       <input id="avatar" name="avatar" type="file" onChange={(event) => {
-                        formProps.setFieldValue("avatar", event.currentTarget.files[0]);
+                        formProps.setFieldValue('avatar', event.currentTarget.files[0])
                         formProps.submitForm()
-                      }} style={{display: 'none'}}/>
+                      }} style={{ display: 'none' }}/>
                     </label>
                   </FormControl>
                 </Grid>
@@ -267,7 +267,7 @@ const UserProfileEdit = () => {
                     size={'large'}
                     type={'submit'}
                     variant={'contained'}
-                    style={{align: 'right'}}
+                    style={{ align: 'right' }}
                   >
                     Save Changes
                   </Button>
