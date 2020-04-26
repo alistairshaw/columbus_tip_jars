@@ -1,21 +1,21 @@
-import Backdrop from '@material-ui/core/Backdrop'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import MuiAlert from '@material-ui/lab/Alert'
-import React, { useEffect, useState } from 'react'
-import Snackbar from '@material-ui/core/Snackbar'
 import {
+  Avatar,
+  Backdrop,
   Button,
+  CircularProgress,
   Container,
   FormControl,
   Grid,
+  makeStyles,
+  Snackbar,
   TextField,
 } from '@material-ui/core'
+import MuiAlert from '@material-ui/lab/Alert'
 import { Formik } from 'formik'
-import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
-import Avatar from '@material-ui/core/Avatar'
-import useAuth from '../hooks/use-auth'
+import React, { useEffect, useState } from 'react'
 import FormErrors from '../components/form-errors'
+import useAuth from '../hooks/use-auth'
 
 const useStyles = makeStyles({
   avatar: {
@@ -104,7 +104,7 @@ const UserProfileEdit = () => {
 
     <Container>
       <Backdrop open={isLoading}>
-        <CircularProgress color={'inherit'}/>
+        <CircularProgress color={'inherit'} />
       </Backdrop>
       <Formik
         enableReinitialize={true}
@@ -147,29 +147,49 @@ const UserProfileEdit = () => {
               </MuiAlert>
             </Snackbar>
             <h1>Hello Gorgeous!</h1>
-            <h2 style={{ marginBottom: 60 }}>Record your at-home style advice for everyone missing your
-              smiling face</h2>
+            <h2 style={{ marginBottom: 60 }}>
+              Record your at-home style advice for everyone missing your smiling face
+            </h2>
             <div>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={6} lg={3}>
+                <Grid
+                  item
+                  lg={3}
+                  md={6}
+                  xs={12}
+                >
                   <FormControl className={classes.formInputs}>
                     <label className={classes.avatarLabel}>
-                      <Avatar alt={formProps.values.user_name} src={formProps.values.profile_pic}
-                              className={classes.avatar}/>
+                      <Avatar
+                        alt={formProps.values.user_name}
+                        className={classes.avatar}
+                        src={formProps.values.profile_pic}
+                      />
                       <p>Click to Update</p>
-                      <input id="avatar" name="avatar" type="file" onChange={(event) => {
-                        formProps.setFieldValue('avatar', event.currentTarget.files[0])
-                        formProps.submitForm()
-                      }} style={{ display: 'none' }}/>
+                      <input
+                        id={'avatar'}
+                        name={'avatar'}
+                        onChange={(event) => {
+                          formProps.setFieldValue('avatar', event.currentTarget.files[0])
+                          formProps.submitForm()
+                        }}
+                        style={{ display: 'none' }}
+                        type={'file'}
+                      />
                     </label>
                   </FormControl>
                 </Grid>
-                <Grid item xs={12} md={6} lg={9}>
+                <Grid
+                  item
+                  lg={9}
+                  md={6}
+                  xs={12}
+                >
                   <FormControl className={classes.formInputs}>
                     <TextField
                       aria-describedby={'user_name'}
                       error={!!formProps.errors.user_name}
-                      helperText={(formProps.errors.user_name && formProps.touched.user_name && formProps.errors.user_name) || 'You can use a nickname if you prefer'}
+                      helperText={'You can use a nickname if you prefer'}
                       id={'user_name'}
                       label={'Your Name'}
                       name={'user_name'}
@@ -182,7 +202,7 @@ const UserProfileEdit = () => {
                     <TextField
                       aria-describedby={'business_name'}
                       error={!!formProps.errors.business_name}
-                      helperText={(formProps.errors.business_name && formProps.touched.business_name && formProps.errors.business_name) || 'If you normally work at a salon or other business, tell us that business name'}
+                      helperText={'If you normally work at a salon or other business, tell us that business name'}
                       id={'business_name'}
                       label={'Business Name'}
                       name={'business_name'}
@@ -195,7 +215,7 @@ const UserProfileEdit = () => {
                     <TextField
                       aria-describedby={'specialty'}
                       error={!!formProps.errors.specialty}
-                      helperText={(formProps.errors.specialty && formProps.touched.specialty && formProps.errors.specialty) || 'e.g. Hair Stylist, Nail Expert'}
+                      helperText={'e.g. Hair Stylist, Nail Expert'}
                       id={'specialty'}
                       label={'Specialty or Title'}
                       name={'specialty'}
@@ -208,7 +228,7 @@ const UserProfileEdit = () => {
                     <TextField
                       aria-describedby={'tip_url'}
                       error={!!formProps.errors.tip_url}
-                      helperText={(formProps.errors.tip_url && formProps.touched.tip_url && formProps.errors.tip_url) || 'e.g. Paypal.me page, venmo link - whatever you\'ve got!)'}
+                      helperText={'e.g. Paypal.me page, venmo link - whatever you\'ve got!)'}
                       id={'tip_url'}
                       label={'Give us a link to tip you'}
                       name={'tip_url'}
@@ -229,7 +249,7 @@ const UserProfileEdit = () => {
                     <TextField
                       aria-describedby={'video_url'}
                       error={!!formProps.errors.video_url}
-                      helperText={(formProps.errors.video_url && formProps.touched.video_url && formProps.errors.video_url) || 'Facebook, YouTube or Instagram video'}
+                      helperText={'Facebook, YouTube or Instagram video'}
                       id={'video_url'}
                       label={'Link to your video'}
                       name={'video_url'}
@@ -247,27 +267,27 @@ const UserProfileEdit = () => {
                     <TextField
                       aria-describedby={'blurb'}
                       error={!!formProps.errors.blurb}
-                      helperText={(formProps.errors.blurb && formProps.touched.blurb && formProps.errors.blurb) || 'A few words to preview what we\'ll see in your vid'}
+                      helperText={'A few words to preview what we\'ll see in your vid'}
                       id={'blurb'}
                       label={'Video Description'}
+                      multiline={true}
                       name={'blurb'}
                       onBlur={formProps.handleBlur}
                       onChange={formProps.handleChange}
                       value={formProps.values.blurb}
-                      multiline={true}
                     />
                   </FormControl>
 
-                  <FormErrors errors={formErrors}/>
+                  <FormErrors errors={formErrors} />
 
                   <Button
                     color={'primary'}
                     disabled={formProps.isSubmitting}
                     onClick={formProps.handleSubmit}
                     size={'large'}
+                    style={{ align: 'right' }}
                     type={'submit'}
                     variant={'contained'}
-                    style={{ align: 'right' }}
                   >
                     Save Changes
                   </Button>

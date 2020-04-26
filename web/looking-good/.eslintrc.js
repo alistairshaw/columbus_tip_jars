@@ -102,10 +102,6 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
 
-    'sort-imports-es6-autofix/sort-imports-es6': [2, {
-      'ignoreCase': false,
-      'ignoreMemberSort': false,
-      'memberSyntaxSortOrder': ['all', 'single', 'multiple', 'none']
-    }],
+    'sort-imports-es6-autofix/sort-imports-es6': [0],
   }
 }
