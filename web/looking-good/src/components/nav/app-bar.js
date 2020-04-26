@@ -19,8 +19,8 @@ export default function AppBar({ onDrawerOpen }) {
   return (
     <MaterialAppBar
       className={classes.appBar}
-      position={'fixed'}
       elevation={0}
+      position={'fixed'}
     >
       <Toolbar>
         <Grid

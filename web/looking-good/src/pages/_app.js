@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     color: '#4b4f53',
-    fontSize: 16
+    fontSize: 16,
   },
   toolbar: theme.mixins.toolbar,
 }))
