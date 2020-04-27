@@ -5,20 +5,25 @@ module Api
       before_action :verify_user_profile_ownership, only: %i[update]
 
       def index
-        render json: { resources: UserProfile.all }
+        render json: {resources: UserProfile.all}
       end
 
       def show
-        render json: { resource: profile_with_avatar(UserProfile.find_by_user_id(params[:id])) }
+        user_profile = UserProfile.find_by_user_id(params[:id])
+        if user_profile
+          render json: {resource: profile_with_avatar(user_profile)}
+        else
+          render json: {errors: ['404 not found'], resource: nil}, status: :not_found
+        end
       end
 
       def create
         result = ProfileService.create_user_profile(user_profile_params)
 
         if result.success?
-          render json: { errors: [], resource: profile_with_avatar(result.user_profile) }, status: :created
+          render json: {errors: [], resource: profile_with_avatar(result.user_profile)}, status: :created
         else
-          render json: { errors: result.user_profile.errors.full_messages, resource: nil }, status: :unprocessable_entity
+          render json: {errors: result.user_profile.errors.full_messages, resource: nil}, status: :unprocessable_entity
         end
       end
 
@@ -26,9 +31,9 @@ module Api
         result = ProfileService.update_user_profile(params[:id], user_profile_params)
 
         if result.success?
-          render json: { errors: [], resource: profile_with_avatar(result.user_profile) }, status: :ok
+          render json: {errors: [], resource: profile_with_avatar(result.user_profile)}, status: :ok
         else
-          render json: { errors: Array.wrap(result&.user_profile&.errors&.full_messages), resource: nil }, status: :unprocessable_entity
+          render json: {errors: Array.wrap(result&.user_profile&.errors&.full_messages), resource: nil}, status: :unprocessable_entity
         end
       end
 
@@ -41,20 +46,23 @@ module Api
       end
 
       def profile_with_avatar(user_profile)
-        user_profile.as_json.merge({ avatar: url_for(user_profile.avatar) })
+        if user_profile && user_profile.avatar.attached?
+          return user_profile.as_json.merge({avatar: url_for(user_profile.avatar)})
+        end
+        user_profile
       end
 
       def user_profile_params
         params.permit(
-          :user_name,
-          :avatar,
-          :business_name,
-          :specialty,
-          :tip_url,
-          :video_url,
-          :blurb,
-          :industry,
-          :nickname
+            :user_name,
+            :avatar,
+            :business_name,
+            :specialty,
+            :tip_url,
+            :video_url,
+            :blurb,
+            :industry,
+            :nickname
         ).to_h.deep_symbolize_keys.merge(user_id: current_user.id)
       end
     end
