@@ -1,3 +1,8 @@
+import FormErrors from 'src/components/form-errors'
+import MuiAlert from '@material-ui/lab/Alert'
+import React, { useEffect, useState } from 'react'
+import makeStyles from '@material-ui/core/styles/makeStyles'
+import useAuth from 'src/hooks/use-auth'
 import {
   Avatar,
   Backdrop,
@@ -9,13 +14,8 @@ import {
   Snackbar,
   TextField,
 } from '@material-ui/core'
-import makeStyles from '@material-ui/core/styles/makeStyles'
-import MuiAlert from '@material-ui/lab/Alert'
 import { Formik } from 'formik'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
-import FormErrors from '../components/form-errors'
-import useAuth from '../hooks/use-auth'
 
 const useStyles = makeStyles({
   avatar: {
@@ -94,8 +94,7 @@ const UserProfileEdit = () => {
       })
     } else {
       // If user is logged out, kick them to the sign-in
-      router.push('/login').then(() => {
-      })
+      router.push('/login')
     }
 
   }, [isLoggedIn, router, getUserProfile, setFormValues])
@@ -301,5 +300,4 @@ const UserProfileEdit = () => {
   )
 }
 
-// noinspection JSUnusedGlobalSymbols
 export default UserProfileEdit
