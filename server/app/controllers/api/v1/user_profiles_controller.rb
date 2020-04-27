@@ -9,11 +9,11 @@ module Api
       end
 
       def show
-        user_profile = UserProfile.find_by_user_id(params[:id])
+        user_profile = UserProfile.find_by(user_id: params[:id])
         if user_profile
           render json: { resource: profile_with_avatar(user_profile) }
         else
-          render json: { errors: ['404 not found'], resource: nil }, status: :not_found
+          render json: { errors: ["404 not found"], resource: nil }, status: :not_found
         end
       end
 
@@ -46,7 +46,7 @@ module Api
       end
 
       def profile_with_avatar(user_profile)
-        if user_profile && user_profile.avatar.attached?
+        if user_profile&.avatar&.attached?
           return user_profile.as_json.merge({ avatar: url_for(user_profile.avatar) })
         end
         user_profile
