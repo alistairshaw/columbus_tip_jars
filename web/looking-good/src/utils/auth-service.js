@@ -39,7 +39,7 @@ export default class AuthService {
         email,
         password,
       },
-    }) .then(({ data: { auth_token, resource: profile } }) => {
+    }).then(({ data: { auth_token, resource: profile } }) => {
       this.setToken(auth_token)
       this.setProfile(profile)
     })
@@ -90,7 +90,7 @@ export default class AuthService {
       'Content-Type': 'application/json',
     }
 
-    if (this.loggedIn()){
+    if (this.loggedIn()) {
       headers['Authorization'] = 'Bearer ' + this.getToken()
     }
 
@@ -112,11 +112,21 @@ export default class AuthService {
       `${this.domain}/api/v1/user_profiles` :
       `${this.domain}/api/v1/user_profiles/${data.id}`
 
+    const formData = new FormData()
+    for (const key in data) {
+      if (key === 'avatar' || key === 'profile_pic') {
+        continue
+      }
+      formData.append(key, data[key] === null ? '' : data[key])
+    }
+
+    if (data.avatar) {
+      formData.append('avatar', data.avatar)
+    }
+
     return this.fetch(url, {
       method,
-      data: {
-        user_profile: data,
-      },
+      data: formData,
     })
   }
 

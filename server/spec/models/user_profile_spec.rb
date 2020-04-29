@@ -2,14 +2,18 @@
 #
 # Table name: user_profiles
 #
-#  id         :bigint           not null, primary key
-#  industry   :string
-#  nickname   :string
-#  photo_url  :string
-#  user_name  :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  id            :bigint           not null, primary key
+#  blurb         :text
+#  business_name :string
+#  industry      :string
+#  nickname      :string
+#  specialty     :string
+#  tip_url       :string
+#  user_name     :string
+#  video_url     :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  user_id       :bigint           not null
 #
 # Indexes
 #

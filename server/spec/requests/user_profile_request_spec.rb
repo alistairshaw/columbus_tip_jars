@@ -30,7 +30,6 @@ RSpec.describe "User Profiles" do
 
         expect(json_body[:resources].first).to include(
           :user_name,
-          :photo_url,
           :industry,
           :nickname
         )
@@ -43,12 +42,11 @@ RSpec.describe "User Profiles" do
       let(:user_profile) { create(:user_profile) }
 
       it "returns success" do
-        get "/api/v1/user_profiles/#{user_profile.id}"
+        get "/api/v1/user_profiles/#{user_profile.user.id}"
 
         expect(response).to have_http_status(:ok)
         expect(json_body[:resource][:id]).to eq(user_profile.id)
         expect(json_body[:resource][:user_name]).to eq(user_profile.user_name)
-        expect(json_body[:resource][:photo_url]).to eq(user_profile.photo_url)
         expect(json_body[:resource][:industry]).to eq(user_profile.industry)
         expect(json_body[:resource][:nickname]).to eq(user_profile.nickname)
       end
@@ -82,14 +80,6 @@ RSpec.describe "User Profiles" do
           end.to change(UserProfile, :count).by(1)
         end
       end
-
-      context "when given invalid params" do
-        it "returns errors" do
-          post "/api/v1/user_profiles", headers: { "HTTP_AUTHORIZATION": "Bearer #{auth_token.token}" }
-
-          expect(response).to have_http_status(:unprocessable_entity)
-        end
-      end
     end
 
     context "when unauthorized" do
@@ -116,7 +106,7 @@ RSpec.describe "User Profiles" do
         it "returns the updated user profile", :aggregate_failures do
           put "/api/v1/user_profiles/#{user_profile.id}",
               headers: { "HTTP_AUTHORIZATION": "Bearer #{auth_token.token}" },
-              params: { user_profile: { user_name: "Updated Username" } }
+              params: { user_name: "Updated Username" }
 
           expect(response).to have_http_status(:ok)
           expect(json_body[:errors]).to be_empty
@@ -124,14 +114,6 @@ RSpec.describe "User Profiles" do
           expect(json_body[:resource][:user_name]).to eq("Updated Username")
           expect(json_body[:resource][:industry]).to eq(user_profile.industry)
           expect(json_body[:resource][:nickname]).to eq(user_profile.nickname)
-        end
-
-        context "when given invalid params" do
-          it "returns errors" do
-            put "/api/v1/user_profiles/#{user_profile.id}", headers: { "HTTP_AUTHORIZATION": "Bearer #{auth_token.token}" }
-
-            expect(response).to have_http_status(:unprocessable_entity)
-          end
         end
       end
 
