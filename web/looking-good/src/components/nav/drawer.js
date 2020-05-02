@@ -2,14 +2,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import useAuth from 'src/hooks/use-auth'
 import {
-  Business as BusinessIcon,
-  Help as HelpIcon,
-  Home as HomeIcon,
-  Input as InputIcon,
-  PersonAdd as PersonAddIcon,
-  AccountCircle as ProfileIcon,
-} from '@material-ui/icons/'
-import {
   Divider,
   Hidden,
   List,
@@ -18,6 +10,13 @@ import {
   ListItemText,
   Drawer as MaterialDrawer,
 } from '@material-ui/core'
+import {
+  Help as HelpIcon,
+  Home as HomeIcon,
+  Input as InputIcon,
+  PersonAdd as PersonAddIcon,
+  AccountCircle as ProfileIcon,
+} from '@material-ui/icons/'
 import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
 
@@ -64,7 +63,7 @@ export default function Drawer({ isOpen, onDrawerClose }) {
               </ListItemIcon>
               <ListItemText primary={'User Profile'} />
             </ListItem>
-            <ListItem
+            {/*<ListItem
               button
               onClick={(e) => {
                 e.preventDefault()
@@ -76,7 +75,7 @@ export default function Drawer({ isOpen, onDrawerClose }) {
                 <BusinessIcon />
               </ListItemIcon>
               <ListItemText primary={'Business Profile'} />
-            </ListItem>
+            </ListItem>*/}
           </>
         )}
         <ListItem
