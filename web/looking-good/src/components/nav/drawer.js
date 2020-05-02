@@ -64,7 +64,7 @@ export default function Drawer({ isOpen, onDrawerClose }) {
               </ListItemIcon>
               <ListItemText primary={'User Profile'} />
             </ListItem>
-            <ListItem
+            {/*<ListItem
               button
               onClick={(e) => {
                 e.preventDefault()
@@ -76,7 +76,7 @@ export default function Drawer({ isOpen, onDrawerClose }) {
                 <BusinessIcon />
               </ListItemIcon>
               <ListItemText primary={'Business Profile'} />
-            </ListItem>
+            </ListItem>*/}
           </>
         )}
         <ListItem
