@@ -27,4 +27,5 @@ class UserProfile < ApplicationRecord
   belongs_to :user
   has_many :donation_methods, as: :profile, dependent: :destroy
   has_one_attached :avatar
+  scope :general_filter, ->(filter) { where("user_name ILIKE ?", "%#{filter}%") }
 end

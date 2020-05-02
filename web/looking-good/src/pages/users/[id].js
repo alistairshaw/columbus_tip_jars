@@ -1,9 +1,8 @@
-import DonateButton from '../../components/profile/donate-button'
+import DonateButton from 'src/components/profile/donate-button'
 import React from 'react'
-import Recase from 'better-recase'
-import UserProfileProps from '../../entities/user-profile-props'
-import UserViewHeading from '../../components/profile/heading'
-import Video from '../../components/profile/video'
+import UserProfileProps from 'src/props/user-profile-props'
+import UserViewHeading from 'src/components/profile/heading'
+import Video from 'src/components/profile/video'
 import fetch from 'isomorphic-unfetch'
 import { Avatar, Grid } from '@material-ui/core'
 
@@ -25,13 +24,13 @@ export default function UserProfilePage({ userProfile }) {
       >
         <div style={{ alignSelf: 'center', margin: '30px 0' }}>
           <Avatar
-            alt={userProfile.userName}
+            alt={userProfile.user_name}
             src={userProfile.avatar}
             style={{ width: 250, height: 250 }}
           />
         </div>
         <div style={{ alignSelf: 'center', margin: '30px 0' }}>
-          <DonateButton donateUrl={userProfile.tipUrl} />
+          <DonateButton donateUrl={userProfile.tip_url ? userProfile.tip_url : ''} />
         </div>
       </Grid>
       <Grid
@@ -41,12 +40,12 @@ export default function UserProfilePage({ userProfile }) {
         xs={12}
       >
         <UserViewHeading
-          businessName={userProfile.businessName}
+          businessName={userProfile.business_name}
           specialty={userProfile.specialty}
-          userName={userProfile.userName}
+          userName={userProfile.user_name}
         />
         <p>{userProfile.blurb}</p>
-        <Video url={userProfile.videoUrl} />
+        <Video url={userProfile.video_url} />
       </Grid>
     </Grid>
   )
@@ -63,11 +62,8 @@ export async function getServerSideProps({ params }) {
       props: {},
     }
   }
-
   const data = await response.json()
-  const userProfile = Recase.camelCopy(data.resource)
-
   return {
-    props: { userProfile },
+    props: { userProfile: data.resource },
   }
 }

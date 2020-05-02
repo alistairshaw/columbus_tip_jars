@@ -27,9 +27,9 @@ function UserViewHeading(props) {
 }
 
 UserViewHeading.propTypes = {
-  businessName: PropTypes.string.isRequired,
-  specialty: PropTypes.string.isRequired,
-  userName: PropTypes.string.isRequired,
+  businessName: PropTypes.string,
+  specialty: PropTypes.string,
+  userName: PropTypes.string,
 }
 
 export default UserViewHeading

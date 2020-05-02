@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Recase from 'better-recase'
-import UserCard from '../components/profile/user-card'
+import UserCard from 'src/components/profile/user-card'
 import fetch from 'isomorphic-unfetch'
 import {
   BottomNavigation,
@@ -38,7 +37,9 @@ export default function IndexPage({ userProfiles }) {
   return (
     <div>
       <Typography variant={'h2'}>Welcome to Columbus Tip Jars</Typography>
-      <Typography variant={'h6'}>Provide financial support to cosmetic industry workers who are out of work due to COVID-19.</Typography>
+      <Typography variant={'h6'}>Provide financial support to cosmetic industry workers who are out of work due to
+        COVID-19.
+      </Typography>
       <Box mt={4}>
         <Typography variant={'h5'}>FEATURED</Typography>
       </Box>
@@ -69,11 +70,8 @@ export async function getServerSideProps() {
       props: {},
     }
   }
-
   const data = await response.json()
-  const userProfiles = Recase.camelCopy(data.resources)
-
   return {
-    props: { userProfiles },
+    props: { userProfiles: data.resources },
   }
 }
