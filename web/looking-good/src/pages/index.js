@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Recase from 'better-recase'
+import UserCard from 'src/components/profile/user-card'
 import fetch from 'isomorphic-unfetch'
 import {
   BottomNavigation,
@@ -12,7 +12,6 @@ import {
   Typography,
 } from '@material-ui/core'
 import { GitHub as GitHubIcon } from '@material-ui/icons/'
-import { useRouter } from 'next/router'
 
 function CSCLogoIcon() {
   return (
@@ -23,33 +22,11 @@ function CSCLogoIcon() {
 }
 
 export default function IndexPage({ userProfiles }) {
-  const router = useRouter()
-
   function profileSection() {
     if (userProfiles) {
       return (
         <Grid container wrap={'wrap'}>
-          {userProfiles.map((item, index) => (
-            <Box
-              key={index} marginRight={2}
-              my={5} width={400}
-            >
-              <img
-                alt={item.nickname} src={item.photoUrl}
-                style={{ width: 400, height: 300 }}
-              />
-              <Box pr={2}>
-                <Typography variant={'h5'}>{item.nickname}</Typography>
-                <Typography gutterBottom variant={'body2'}>{`${item.industry}`}</Typography>
-                <Button
-                  onClick={() => {
-                    router.push(`/users/${item.id}`)
-                  }} variant={'contained'}
-                >Tip Jar
-                </Button>
-              </Box>
-            </Box>
-          ))}
+          {userProfiles.map((profile) => <UserCard key={profile.id} userProfile={profile} />)}
         </Grid>
       )
     } else {
@@ -60,7 +37,9 @@ export default function IndexPage({ userProfiles }) {
   return (
     <div>
       <Typography variant={'h2'}>Welcome to Columbus Tip Jars</Typography>
-      <Typography variant={'h6'}>Provide financial support to cosmetic industry workers who are out of work due to COVID-19.</Typography>
+      <Typography variant={'h6'}>Provide financial support to cosmetic industry workers who are out of work due to
+        COVID-19.
+      </Typography>
       <Box mt={4}>
         <Typography variant={'h5'}>FEATURED</Typography>
       </Box>
@@ -91,11 +70,8 @@ export async function getServerSideProps() {
       props: {},
     }
   }
-
   const data = await response.json()
-  const userProfiles = Recase.camelCopy(data.resources)
-
   return {
-    props: { userProfiles },
+    props: { userProfiles: data.resources },
   }
 }

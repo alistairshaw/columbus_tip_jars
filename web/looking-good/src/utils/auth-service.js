@@ -136,4 +136,10 @@ export default class AuthService {
       method: 'GET',
     })
   }
+
+  searchUserProfiles = (filter) => {
+    return this.fetch(`${this.domain}/api/v1/user_profiles?filter=${filter}`, {
+      method: 'GET',
+    })
+  }
 }
