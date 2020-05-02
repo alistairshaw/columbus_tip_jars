@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
 import React from 'react'
+import UserProfileProps from '../../entities/user-profile-props'
 import { Avatar, Box, Button, Typography } from '@material-ui/core'
 import { useRouter } from 'next/router'
 
@@ -32,15 +32,5 @@ export default function UserCard(props) {
 }
 
 UserCard.propTypes = {
-  userProfile: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    userName: PropTypes.string.isRequired,
-    avatar: PropTypes.string,
-    photoUrl: PropTypes.string,
-    industry: PropTypes.string,
-    nickname: PropTypes.string,
-    userId: PropTypes.number.isRequired,
-    createdAt: PropTypes.instanceOf(Date).isRequired,
-    updatedAt: PropTypes.instanceOf(Date).isRequired,
-  }),
+  userProfile: UserProfileProps,
 }
