@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import Recase from 'better-recase'
+import UserCard from '../components/profile/user-card'
 import fetch from 'isomorphic-unfetch'
 import {
   BottomNavigation,
@@ -12,7 +13,6 @@ import {
   Typography,
 } from '@material-ui/core'
 import { GitHub as GitHubIcon } from '@material-ui/icons/'
-import UserCard from '../components/profile/user-card'
 
 function CSCLogoIcon() {
   return (
