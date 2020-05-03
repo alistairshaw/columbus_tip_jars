@@ -8,7 +8,7 @@ export default function SearchResult(props) {
   const router = useRouter()
 
   const selectOption = () => {
-    router.push(`/users/${props.userProfile.id}`)
+    router.push(`/users/${props.userProfile.user_id}`)
   }
 
   return (
