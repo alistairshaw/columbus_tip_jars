@@ -1,19 +1,36 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import YouTube from 'react-youtube'
+import Facebook from './videos/facebook'
+import Instagram from './videos/instagram'
+import YouTube from './videos/youtube'
 
-function getVideoId(videoUrl) {
-  if (!videoUrl) { return null }
-  const queryString = videoUrl.split('?').length > 0 ? videoUrl.split('?')[1] : null
-  if (!queryString) { return null }
-  const urlParams = new URLSearchParams(queryString)
-  return urlParams.get('v')
+const YOUTUBE = 'Youtube'
+const FACEBOOK = 'Facebook'
+const INSTAGRAM = 'Instagram'
+
+export default function Video({ url }) {
+  switch (detectVideoType(url)) {
+  case YOUTUBE:
+    return <YouTube url={url} />
+  case FACEBOOK:
+    return <Facebook url={url} />
+  case INSTAGRAM:
+    return <Instagram url={url} />
+  default:
+    return <div>No valid video link provided</div>
+  }
 }
 
-export default function Video(props) {
-  const videoId = getVideoId(props.url)
-  if (!videoId) { return <div>No Valid YouTube Link Provided</div> }
-  return <YouTube videoId={videoId} />
+function detectVideoType(url) {
+  if (url.toLowerCase().includes('facebook')) {
+    return FACEBOOK
+  }
+  if (url.toLowerCase().includes('youtube')) {
+    return YOUTUBE
+  }
+  if (url.toLowerCase().includes('instagram')) {
+    return INSTAGRAM
+  }
 }
 
 Video.propTypes = {
