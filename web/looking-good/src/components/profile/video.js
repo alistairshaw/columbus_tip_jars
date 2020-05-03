@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import Facebook from './videos/facebook'
+import Instagram from './videos/instagram'
 import YouTube from './videos/youtube'
 
 const YOUTUBE = 'Youtube'
@@ -13,6 +14,8 @@ export default function Video({ url }) {
     return <YouTube url={url} />
   case FACEBOOK:
     return <Facebook url={url} />
+  case INSTAGRAM:
+    return <Instagram url={url} />
   default:
     return <div>No valid video link provided</div>
   }
