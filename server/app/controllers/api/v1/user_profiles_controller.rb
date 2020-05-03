@@ -5,7 +5,7 @@ module Api
       before_action :verify_user_profile_ownership, only: %i[update]
 
       def index
-        render json: { resources: UserProfile.all }
+        render json: { resources: UserProfile.all.map { |user_profile| profile_with_avatar(user_profile) } }
       end
 
       def show
