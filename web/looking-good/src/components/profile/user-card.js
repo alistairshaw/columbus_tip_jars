@@ -22,7 +22,7 @@ export default function UserCard(props) {
         <Typography gutterBottom variant={'body2'}>{`${userProfile.specialty}`}</Typography>
         <Button
           onClick={() => {
-            router.push(`/users/${userProfile.id}`)
+            router.push(`/users/${userProfile.user_id}`)
           }} variant={'contained'}
         >Tip Jar
         </Button>
