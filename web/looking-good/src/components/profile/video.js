@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import Facebook from './videos/facebook'
 import Instagram from './videos/instagram'
+import PropTypes from 'prop-types'
+import React from 'react'
 import YouTube from './videos/youtube'
 
 const YOUTUBE = 'Youtube'
