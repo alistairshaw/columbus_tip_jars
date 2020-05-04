@@ -8,6 +8,7 @@ set :repo_url, "git@github.com:alistairshaw/columbus_tip_jars.git"
 set :deploy_to, "/home/deploy/#{fetch :application}"
 
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
+set :linked_files, %w{config/master.key}
 
 # Only keep the last 5 releases to save disk space
 set :keep_releases, 5
