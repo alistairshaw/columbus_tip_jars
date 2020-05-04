@@ -37,6 +37,11 @@ bundle exec rspec
 bundle exec rubocop
 ```
 
+#### To deploy to production
+```
+cap production deploy
+```
+
 ## Authors
 * [Brandon Tolle](https://github.com/tollebrandon)
 * [Corey Synder](https://github.com/coreysnyder)
