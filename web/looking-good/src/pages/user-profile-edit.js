@@ -54,10 +54,28 @@ const useStyles = makeStyles({
   successBanner: {
     top: 85,
   },
-})
+});
+
+const onProfileValidate = (formValues) => {
+  const errors = {};
+  let urlpattern = RegExp(
+'^(ftp:\/\/|https:\/\/|http:\/\/|)(www\.|)([A-Za-z0-9-]{1,63}\.)*([A-Za-z]{2,63})*(\/[A-Za-z0-9-_.]*)*$'
+  );
+
+  if(!formValues.video_url){
+    errors.video_url = 'Required'
+  } else if(urlpattern.exec(formValues.video_url) == null){
+    errors.video_url = 'Invalid URL'
+  }
+  if(!formValues.tip_url){
+    errors.tip_url = 'Required'
+  } else if(urlpattern.exec(formValues.tip_url) == null){
+    errors.tip_url = 'Invalid URL'
+  }
+};
 
 const UserProfileEdit = () => {
-  const classes = useStyles()
+  const classes = useStyles();
   const [formErrors, setFormErrors] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [saveSuccess, setSaveSuccess] = useState(false)
@@ -108,6 +126,7 @@ const UserProfileEdit = () => {
       <Formik
         enableReinitialize={true}
         initialValues={formValues}
+        validate={OnProfileValidate}
         onSubmit={(formData, { setSubmitting }) => {
           setIsLoading(true)
           setFormErrors([])
