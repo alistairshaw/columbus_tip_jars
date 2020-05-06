@@ -62,7 +62,12 @@ const onProfileValidate = (formValues) => {
    errors.user_name = 'Required'
   }
   let urlpattern = RegExp(
-'^(ftp:\/\/|https:\/\/|http:\/\/|)(www\.|)([A-Za-z0-9-]{1,63}\.)*([A-Za-z]{2,63})*(\/[A-Za-z0-9-_.]*)*$'
+    '^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i' 
   );
 
   if(!formValues.video_url){
@@ -100,7 +105,7 @@ const UserProfileEdit = () => {
       // If user is logged in, show loading & fetch their profile data
       getUserProfile().then(({ resource }) => {
         setFormValues({
-          id: resource.id,
+         id: resource.id,
           user_name: resource.user_name,
           profile_pic: resource.avatar,
           business_name: resource.business_name,
