@@ -58,6 +58,9 @@ const useStyles = makeStyles({
 
 const onProfileValidate = (formValues) => {
   const errors = {};
+  if(!formValues.user_name){
+   errors.user_name = 'Required'
+  }
   let urlpattern = RegExp(
 '^(ftp:\/\/|https:\/\/|http:\/\/|)(www\.|)([A-Za-z0-9-]{1,63}\.)*([A-Za-z]{2,63})*(\/[A-Za-z0-9-_.]*)*$'
   );
