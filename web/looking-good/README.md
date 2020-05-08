@@ -31,6 +31,9 @@ yarn build
 yarn start
 ```
 
+#### To Deploy
+
+Create a release, tag it and push to `master`
 
 ## Built With
 * [React](https://github.com/facebook/react) - Component-based JS library
