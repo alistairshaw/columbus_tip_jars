@@ -16,7 +16,7 @@ import { GitHub as GitHubIcon } from '@material-ui/icons/'
 function CSCLogoIcon() {
   return (
     <Icon>
-      <img src={'/logos/cscbus_logo_square.png'} style={{ width: 24, height: 24 }} />
+      <a href='https://cantstopcolumbus.com/' target='_blank'><img src={'/logos/cscbus_logo_square.png'} style={{ width: 24, height: 24}} /></a>
     </Icon>
   )
 }
@@ -47,13 +47,15 @@ export default function IndexPage({ userProfiles }) {
       <Button color={'primary'} variant={'contained'}>View all</Button>
       <BottomNavigation
         showLabels style={{
-          width: '100%',
+          width: '65%',
+          display: 'flex',
+          justifyContent: 'space-evenly',
           position: 'fixed',
           bottom: 0,
-        }}
-      >
-        <BottomNavigationAction icon={(<GitHubIcon />)} label={'GitHub'} />
-        <BottomNavigationAction icon={(<CSCLogoIcon />)} label={'Can\'t Stop Columbus'} />
+          boxSizing: 'border-box',
+        }}>
+          <a href='https://github.com/alistairshaw/columbus_tip_jars' target='_blank'><BottomNavigationAction icon={(<GitHubIcon />)} label={'GitHub'} /></a>
+          <BottomNavigationAction icon={(<CSCLogoIcon />)} label={'Can\'t Stop Columbus'} />
       </BottomNavigation>
     </div>
   )

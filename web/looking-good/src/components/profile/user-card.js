@@ -10,12 +10,13 @@ export default function UserCard(props) {
   return (
     <Box
       marginRight={2}
-      my={5} width={400}
+      my={5} width={250}
+      style={{ border: 'rgb(80,80,80) 1px solid', borderRadius: '25px', padding: '2%', textAlign: 'center' }}
     >
       <Avatar
         alt={userProfile.user_name}
         src={userProfile.avatar}
-        style={{ width: 150, height: 150 }}
+        style={{ width: 150, height: 150, margin: 'auto' }}
       />
       <Box pr={2}>
         <Typography variant={'h5'}>{userProfile.user_name}</Typography>
