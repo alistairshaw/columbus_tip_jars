@@ -189,7 +189,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   logo: {
-    width: '95%',
-    padding: '2.5%'
+    position: 'relative',
+    right: '0.5rem',
+    padding: 'auto',
+    width: '100%'
   },
 }))

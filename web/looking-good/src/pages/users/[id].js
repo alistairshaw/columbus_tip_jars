@@ -14,7 +14,13 @@ export default function UserProfilePage({ userProfile }) {
   }
 
   return (
-    <Grid container spacing={3}>
+    <Grid style={{ 
+      border: '5px #808080 solid', 
+      borderRadius: '25px', 
+      width: '90%',
+      padding: '2%',
+      margin: 'auto' 
+    }} container spacing={3}>
       <Grid
         item
         lg={3}

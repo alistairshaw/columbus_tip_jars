@@ -36,8 +36,8 @@ export default function IndexPage({ userProfiles }) {
 
   return (
     <div>
-      <Typography variant={'h2'}>Welcome to Columbus Tip Jars</Typography>
-      <Typography variant={'h6'}>Provide financial support to cosmetic industry workers who are out of work due to
+      <Typography style={{color: 'black' }} variant={'h3'}>Welcome to Columbus Tip Jars</Typography>
+      <Typography ariant={'h6'}>Provide financial support to cosmetic industry workers who are out of work due to
         COVID-19.
       </Typography>
       <Box mt={4}>
@@ -47,12 +47,14 @@ export default function IndexPage({ userProfiles }) {
       <Button color={'primary'} variant={'contained'}>View all</Button>
       <BottomNavigation
         showLabels style={{
-          width: '65%',
+          width: '25vw',
           display: 'flex',
           justifyContent: 'space-evenly',
           position: 'fixed',
-          bottom: 0,
+          bottom: 1,
+          right: '37.5vw',
           boxSizing: 'border-box',
+          zIndex: -1
         }}>
           <a href='https://github.com/alistairshaw/columbus_tip_jars' target='_blank'><BottomNavigationAction icon={(<GitHubIcon />)} label={'GitHub'} /></a>
           <BottomNavigationAction icon={(<CSCLogoIcon />)} label={'Can\'t Stop Columbus'} />
