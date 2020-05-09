@@ -46,6 +46,7 @@ Create a release, tag it and push to `master`
 * [Devin Riegle](https://github.com/deriegle)
 * [Katie Macke](https://github.com/asleepysheepy)
 * [Katrina Theodosopoulos](https://github.com/GreeKatrina)
-
+* [Ben Beers](https://github.com/ben-beers)
+* [Alistair Shaw](https://github.com/alistairshaw)
 
 <small>This project was made by [Can't Stop Columbus](https://cantstopcolumbus.com/).</small>
