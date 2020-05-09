@@ -54,36 +54,38 @@ const useStyles = makeStyles({
   successBanner: {
     top: 85,
   },
-});
+})
 
 const onProfileValidate = (formValues) => {
-  const errors = {};
-  if(!formValues.user_name){
-   errors.user_name = 'Required'
+  const errors = {}
+  if (!formValues.user_name) {
+    errors.user_name = 'Required'
   }
   let urlpattern = RegExp(
-    '^(https?:\\/\\/)?'+ // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-    '(\\#[-a-z\\d_]*)?$','i' 
-  );
+    '^(https?:\\/\\/)?' + // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+    '(\\#[-a-z\\d_]*)?$', 'i',
+  )
 
-  if(!formValues.video_url){
+  if (!formValues.video_url) {
     errors.video_url = 'Required'
-  } else if(urlpattern.exec(formValues.video_url) == null){
+  } else if (urlpattern.exec(formValues.video_url) === null) {
     errors.video_url = 'Invalid URL'
   }
-  if(!formValues.tip_url){
+  if (!formValues.tip_url) {
     errors.tip_url = 'Required'
-  } else if(urlpattern.exec(formValues.tip_url) == null){
+  } else if (urlpattern.exec(formValues.tip_url) === null) {
     errors.tip_url = 'Invalid URL'
   }
-};
+
+  return errors
+}
 
 const UserProfileEdit = () => {
-  const classes = useStyles();
+  const classes = useStyles()
   const [formErrors, setFormErrors] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [saveSuccess, setSaveSuccess] = useState(false)
@@ -105,7 +107,7 @@ const UserProfileEdit = () => {
       // If user is logged in, show loading & fetch their profile data
       getUserProfile().then(({ resource }) => {
         setFormValues({
-         id: resource.id,
+          id: resource.id,
           user_name: resource.user_name,
           profile_pic: resource.avatar,
           business_name: resource.business_name,
@@ -134,7 +136,6 @@ const UserProfileEdit = () => {
       <Formik
         enableReinitialize={true}
         initialValues={formValues}
-        validate={OnProfileValidate}
         onSubmit={(formData, { setSubmitting }) => {
           setIsLoading(true)
           setFormErrors([])
@@ -156,6 +157,7 @@ const UserProfileEdit = () => {
             setIsLoading(false)
           })
         }}
+        validate={onProfileValidate}
       >
         {(formProps) => (
           <div>
