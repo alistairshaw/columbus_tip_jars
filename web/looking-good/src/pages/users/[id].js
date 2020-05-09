@@ -15,10 +15,11 @@ export default function UserProfilePage({ userProfile }) {
 
   return (
     <Grid style={{ 
-      border: '5px #808080 solid', 
+      border: '2px #808080 solid',
+      backgroundColor: 'white', 
       borderRadius: '25px', 
       width: '90%',
-      padding: '2%',
+      padding: '1.5%',
       margin: 'auto' 
     }} container spacing={3}>
       <Grid
@@ -32,7 +33,7 @@ export default function UserProfilePage({ userProfile }) {
           <Avatar
             alt={userProfile.user_name}
             src={userProfile.avatar}
-            style={{ width: 250, height: 250 }}
+            style={{ width: 200, height: 200 }}
           />
         </div>
         <div style={{ alignSelf: 'center', margin: '30px 0' }}>

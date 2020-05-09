@@ -4,7 +4,7 @@ import { Box, Container, Typography } from '@material-ui/core'
 export default function AboutPage() {
   return (
     <Container>
-      <Typography color={'textPrimary'} variant={'h2'}>{'About Looking Good Columbus'}</Typography>
+      <Typography color={'textPrimary'} variant={'h3'}>{'About Looking Good Columbus'}</Typography>
 
       <Box marginTop={5}>
         <Typography variant={'h6'}>

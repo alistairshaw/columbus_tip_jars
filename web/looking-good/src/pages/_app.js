@@ -41,11 +41,13 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+    height: '100vh',
+    background: '#ECF0F6'
   },
   root: {
     display: 'flex',
     color: '#4b4f53',
-    fontSize: 16,
+    fontSize: 16
   },
   toolbar: theme.mixins.toolbar,
 }))

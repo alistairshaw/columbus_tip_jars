@@ -28,7 +28,12 @@ export default function Drawer({ isOpen, onDrawerClose }) {
   const drawerContents = (
     <>
       <div className={classes.drawerHeader}>
-        <img
+        <img button
+          onClick={(e) => {
+            e.preventDefault()
+            router.push('/')
+          }}
+          selected={router.pathname === '/'}
           className={classes.logo}
           src={'/looking-good-cbus.png'}
         />
@@ -190,8 +195,8 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     position: 'relative',
-    right: '0.5rem',
+    right: '7%',
     padding: 'auto',
-    width: '100%'
+    width: '107%',
   },
 }))

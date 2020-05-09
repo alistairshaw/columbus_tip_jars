@@ -47,14 +47,13 @@ export default function IndexPage({ userProfiles }) {
       <Button color={'primary'} variant={'contained'}>View all</Button>
       <BottomNavigation
         showLabels style={{
-          width: '25vw',
+          width: '100vw',
           display: 'flex',
           justifyContent: 'space-evenly',
           position: 'fixed',
           bottom: 1,
-          right: '37.5vw',
-          boxSizing: 'border-box',
-          zIndex: -1
+          left: 0,
+          boxSizing: 'border-box'
         }}>
           <a href='https://github.com/alistairshaw/columbus_tip_jars' target='_blank'><BottomNavigationAction icon={(<GitHubIcon />)} label={'GitHub'} /></a>
           <BottomNavigationAction icon={(<CSCLogoIcon />)} label={'Can\'t Stop Columbus'} />

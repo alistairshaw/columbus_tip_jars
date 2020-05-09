@@ -13,12 +13,13 @@ export default function UserCard(props) {
       my={5} width={250}
       style={{ 
         backgroundColor: 'white', 
-        border: '#4300ff 1.5px solid',
+        // border: '#4300ff 1.5px solid',
         borderRadius: '25px', 
         paddingTop: '15px', 
         paddingBottom: '15px', 
         textAlign: 'center',
-        boxShadow: '7px 7px #808080' 
+        boxShadow: '7px 7px #808080',
+        margin: '2.5%' 
       }}
     >
       <Avatar
