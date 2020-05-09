@@ -63,19 +63,6 @@ export default function Drawer({ isOpen, onDrawerClose }) {
               </ListItemIcon>
               <ListItemText primary={'User Profile'} />
             </ListItem>
-            {/*<ListItem
-              button
-              onClick={(e) => {
-                e.preventDefault()
-                router.push('/business-profile-edit')
-              }}
-              selected={router.pathname === '/business-profile-edit'}
-            >
-              <ListItemIcon>
-                <BusinessIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Business Profile'} />
-            </ListItem>*/}
           </>
         )}
         <ListItem
