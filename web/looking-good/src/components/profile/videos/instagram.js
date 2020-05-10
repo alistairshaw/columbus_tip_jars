@@ -1,6 +1,6 @@
 import InstagramEmbed from 'react-instagram-embed'
 import React from 'react'
-import { PropTypes } from '@material-ui/core'
+import * as PropTypes from 'prop-types'
 
 export default function Instagram({ url }) {
   return (

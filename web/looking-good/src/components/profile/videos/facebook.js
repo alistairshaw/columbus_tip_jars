@@ -1,5 +1,5 @@
+import * as PropTypes from 'prop-types'
 import React from 'react'
-import { PropTypes } from '@material-ui/core'
 
 export default function Facebook({ url }) {
   return (

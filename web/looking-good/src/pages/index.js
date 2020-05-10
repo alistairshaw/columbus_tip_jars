@@ -46,7 +46,7 @@ export default function IndexPage({ userProfiles }) {
       {profileSection()}
       <Button color={'primary'} variant={'contained'}>View all</Button>
       <BottomNavigation
-        showLabels style={{
+        showlabels style={{
           width: '100vw',
           display: 'flex',
           justifyContent: 'space-evenly',
