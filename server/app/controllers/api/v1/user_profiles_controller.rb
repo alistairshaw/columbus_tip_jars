@@ -42,7 +42,15 @@ module Api
         end
       end
 
-      private
+      def destroy
+        user_profile = UserProfile.find_by(user_id: params[:id])
+        if user_profile
+          user_profile.destroy
+          render json: { resource: nil }
+        else
+          render json: { errors: ["404 not found"], resource: nil }, status: :not_found
+        end
+      end
 
       def verify_user_profile_ownership
         user_profile = UserProfile.find_by(id: params[:id], user_id: current_user.id)

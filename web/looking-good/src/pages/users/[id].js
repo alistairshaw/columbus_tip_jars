@@ -14,14 +14,17 @@ export default function UserProfilePage({ userProfile }) {
   }
 
   return (
-    <Grid style={{ 
-      border: '2px #808080 solid',
-      backgroundColor: 'white', 
-      borderRadius: '25px', 
-      width: '90%',
-      padding: '1.5%',
-      margin: 'auto' 
-    }} container spacing={3}>
+    <Grid
+      container spacing={3}
+      style={{
+        border: '2px #808080 solid',
+        backgroundColor: 'white',
+        borderRadius: '25px',
+        width: '90%',
+        padding: '1.5%',
+        margin: 'auto',
+      }}
+    >
       <Grid
         item
         lg={3}

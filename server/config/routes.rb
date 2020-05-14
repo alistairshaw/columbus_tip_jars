@@ -41,7 +41,7 @@ Rails.application.routes.draw do
         resources :donation_methods, only: %i[index show create update]
       end
 
-      resources :user_profiles, only: %i[index show create update] do
+      resources :user_profiles, only: %i[index show create update destroy] do
         resources :donation_methods, only: %i[index show create update]
       end
     end

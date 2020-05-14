@@ -15,5 +15,6 @@ export default function useAuth() {
     getUserProfile: auth.getUserProfile,
     updateUserProfile: auth.updateUserProfile,
     searchUserProfiles: auth.searchUserProfiles,
+    deleteUserProfile: auth.deleteUserProfile,
   }
 }

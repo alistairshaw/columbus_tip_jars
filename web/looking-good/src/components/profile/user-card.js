@@ -10,17 +10,17 @@ export default function UserCard(props) {
   return (
     <Box
       marginRight={2}
-      my={5} width={250}
-      style={{ 
-        backgroundColor: 'white', 
+      my={5} style={{
+        backgroundColor: 'white',
         // border: '#4300ff 1.5px solid',
-        borderRadius: '25px', 
-        paddingTop: '15px', 
-        paddingBottom: '15px', 
+        borderRadius: '25px',
+        paddingTop: '15px',
+        paddingBottom: '15px',
         textAlign: 'center',
         boxShadow: '7px 7px #808080',
-        margin: '2.5%' 
+        margin: '2.5%',
       }}
+      width={250}
     >
       <Avatar
         alt={userProfile.user_name}
