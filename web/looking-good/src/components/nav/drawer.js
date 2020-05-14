@@ -28,13 +28,14 @@ export default function Drawer({ isOpen, onDrawerClose }) {
   const drawerContents = (
     <>
       <div className={classes.drawerHeader}>
-        <img button
+        <img
+          button
+          className={classes.logo}
           onClick={(e) => {
             e.preventDefault()
             router.push('/')
           }}
           selected={router.pathname === '/'}
-          className={classes.logo}
           src={'/looking-good-cbus.png'}
         />
       </div>

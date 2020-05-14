@@ -16,7 +16,11 @@ import { GitHub as GitHubIcon } from '@material-ui/icons/'
 function CSCLogoIcon() {
   return (
     <Icon>
-      <a href='https://cantstopcolumbus.com/' target='_blank'><img src={'/logos/cscbus_logo_square.png'} style={{ width: 24, height: 24}} /></a>
+      <a
+        href={'https://cantstopcolumbus.com/'} rel={'noopener noreferrer'}
+        target={'_blank'}
+      ><img src={'/logos/cscbus_logo_square.png'} style={{ width: 24, height: 24 }} />
+      </a>
     </Icon>
   )
 }
@@ -36,7 +40,7 @@ export default function IndexPage({ userProfiles }) {
 
   return (
     <div>
-      <Typography style={{color: 'black' }} variant={'h3'}>Welcome to Columbus Tip Jars</Typography>
+      <Typography style={{ color: 'black' }} variant={'h3'}>Welcome to Columbus Tip Jars</Typography>
       <Typography ariant={'h6'}>Provide financial support to cosmetic industry workers who are out of work due to
         COVID-19.
       </Typography>
@@ -53,10 +57,15 @@ export default function IndexPage({ userProfiles }) {
           position: 'fixed',
           bottom: 1,
           left: 0,
-          boxSizing: 'border-box'
-        }}>
-          <a href='https://github.com/alistairshaw/columbus_tip_jars' target='_blank'><BottomNavigationAction icon={(<GitHubIcon />)} label={'GitHub'} /></a>
-          <BottomNavigationAction icon={(<CSCLogoIcon />)} label={'Can\'t Stop Columbus'} />
+          boxSizing: 'border-box',
+        }}
+      >
+        <a
+          href={'https://github.com/alistairshaw/columbus_tip_jars'} rel={'noopener noreferrer'}
+          target={'_blank'}
+        ><BottomNavigationAction icon={(<GitHubIcon />)} label={'GitHub'} />
+        </a>
+        <BottomNavigationAction icon={(<CSCLogoIcon />)} label={'Can\'t Stop Columbus'} />
       </BottomNavigation>
     </div>
   )
