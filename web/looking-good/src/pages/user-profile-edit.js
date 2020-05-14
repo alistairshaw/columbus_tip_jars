@@ -176,7 +176,7 @@ const UserProfileEdit = () => {
             </Snackbar>
             <h1>Hello Gorgeous!</h1>
             <h2 style={{ marginBottom: 60 }}>
-              Record your at-home style advice for everyone missing your smiling face
+             Show off your skills & best advice for your clients (and maybe get some new ones)!
             </h2>
             <div>
               <Grid container spacing={3}>
@@ -267,11 +267,7 @@ const UserProfileEdit = () => {
                   </FormControl>
                   <h2>Now for the fun part....</h2>
                   <p>
-                    Record a simple video to help your clients maintain their look until they can
-                    see you again in person. Consider showing ways to style instead of cutting your
-                    own bangs, giving advice for those of us struggling with our natural color,
-                    or telling us what to do now that our gel manis have reached an embarrassing
-                    grow-out length. Or just stay in touch and show us what you’ve been up to!
+                    Record a simple video for your clients. Give ideas for long-bang styles, advice for maintaining color – or just tell us what you’ve been up to!
                   </p>
                   <FormControl className={classes.formInputs}>
                     <TextField
