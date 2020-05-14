@@ -142,4 +142,11 @@ export default class AuthService {
       method: 'GET',
     })
   }
+
+  deleteUserProfile = () => {
+    const profile = this.getProfile()
+    return this.fetch(`${this.domain}/api/v1/user_profiles/${profile.id}`, {
+      method: 'DELETE',
+    })
+  }
 }
