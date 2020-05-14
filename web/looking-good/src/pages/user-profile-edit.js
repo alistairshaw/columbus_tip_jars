@@ -317,7 +317,7 @@ const UserProfileEdit = () => {
                     type={'submit'}
                     variant={'contained'}
                   >
-                    Save Changes
+                    Delete Profile
                   </Button>
                 </Grid>
               </Grid>
