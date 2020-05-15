@@ -304,17 +304,6 @@ const UserProfileEdit = () => {
 
                   <FormErrors errors={formErrors} />
 
-                  <Button
-                    color={'primary'}
-                    disabled={formProps.isSubmitting}
-                    onClick={formProps.handleSubmit}
-                    size={'large'}
-                    style={{ align: 'right' }}
-                    type={'submit'}
-                    variant={'contained'}
-                  >
-                    Delete Profile
-                  </Button>
                 </Grid>
               </Grid>
             </div>
