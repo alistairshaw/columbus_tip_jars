@@ -40,9 +40,10 @@ export default function IndexPage({ userProfiles }) {
 
   return (
     <div>
-      <Typography style={{ color: 'black' }} variant={'h3'}>Welcome to Columbus Tip Jars</Typography>
-      <Typography ariant={'h6'}>Provide financial support to cosmetic industry workers who are out of work due to
-        COVID-19.
+      <Typography style={{ color: 'black' }} variant={'h3'}>Get a tip – leave a tip</Typography>
+      <Typography ariant={'h6'}>Connect with your stylist and get hints to keep yourself looking good. Tip your stylist to help them maintain income in this tough time.
+
+Simply search for your stylist by name. Check out some style tips and leave a tip for your stylist!
       </Typography>
       <Box mt={4}>
         <Typography variant={'h5'}>FEATURED</Typography>
