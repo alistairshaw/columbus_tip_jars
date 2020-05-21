@@ -6,7 +6,6 @@ import useAuth from 'src/hooks/use-auth'
 import {
   Avatar,
   Backdrop,
-  Button,
   CircularProgress,
   Container,
   FormControl,
@@ -176,7 +175,7 @@ const UserProfileEdit = () => {
             </Snackbar>
             <h1>Hello Gorgeous!</h1>
             <h2 style={{ marginBottom: 60 }}>
-             Show off your skills & best advice for your clients (and maybe get some new ones)!
+              Show off your skills & best advice for your clients (and maybe get some new ones)!
             </h2>
             <div>
               <Grid container spacing={3}>
