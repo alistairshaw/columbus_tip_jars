@@ -5,7 +5,7 @@ import Video from '../../components/profile/video'
 import { PropTypes } from 'prop-types'
 
 export default function FeaturedVideo({ userProfile, title }) {
-  if (userProfile === null) { return <NoFeaturedVideoYet title={title} /> }
+  if (!userProfile) { return <NoFeaturedVideoYet title={title} /> }
   return (
     <ContentSection>
       <h1>{title ? title : 'Featured Video'}</h1>
