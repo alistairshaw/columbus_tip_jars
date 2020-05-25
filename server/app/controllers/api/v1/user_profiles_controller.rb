@@ -38,7 +38,7 @@ module Api
         if result.success?
           render json: { errors: [], resource: profile_with_avatar(result.user_profile) }, status: :ok
         else
-          render json: { errors: Array.wrap(result&.user_profile&.errors&.full_messages), resource: nil }, status: :unprocessable_entity
+          render json: { errors: Array.wrap(result.user_profile&.errors&.full_messages), resource: nil }, status: :unprocessable_entity
         end
       end
 
@@ -70,6 +70,7 @@ module Api
           :user_name,
           :avatar,
           :business_name,
+          :category,
           :specialty,
           :tip_url,
           :video_url,

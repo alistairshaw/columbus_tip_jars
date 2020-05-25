@@ -40,8 +40,7 @@ App.propTypes = {
 const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
-    height: '100vh',
+    padding: theme.spacing(10),
     background: '#ECF0F6',
   },
   root: {

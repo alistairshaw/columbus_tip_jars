@@ -1,4 +1,6 @@
+import Button from '@material-ui/core/Button'
 import FormErrors from 'src/components/form-errors'
+import FormHelperText from '@material-ui/core/FormHelperText'
 import MuiAlert from '@material-ui/lab/Alert'
 import React, { useEffect, useState } from 'react'
 import makeStyles from '@material-ui/core/styles/makeStyles'
@@ -10,6 +12,8 @@ import {
   Container,
   FormControl,
   Grid,
+  MenuItem,
+  Select,
   Snackbar,
   TextField,
 } from '@material-ui/core'
@@ -40,6 +44,15 @@ const useStyles = makeStyles({
         display: 'block',
       },
     },
+  },
+  deleteProfileContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  deleteProfileButton: {
+    backgroundColor: 'red',
+    color: 'white',
   },
   formInputs: {
     width: '100%',
@@ -83,23 +96,26 @@ const onProfileValidate = (formValues) => {
   return errors
 }
 
+const blankForm = {
+  id: null,
+  user_name: '',
+  profile_pic: null,
+  business_name: '',
+  category: 'Stylist',
+  specialty: '',
+  tip_url: '',
+  video_url: '',
+  blurb: '',
+}
+
 const UserProfileEdit = () => {
   const classes = useStyles()
   const [formErrors, setFormErrors] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [saveSuccess, setSaveSuccess] = useState(false)
-  const [formValues, setFormValues] = useState({
-    id: null,
-    user_name: '',
-    profile_pic: null,
-    business_name: '',
-    specialty: '',
-    tip_url: '',
-    video_url: '',
-    blurb: '',
-  })
+  const [formValues, setFormValues] = useState(blankForm)
   const router = useRouter()
-  const { isLoggedIn, getUserProfile, updateUserProfile } = useAuth()
+  const { isLoggedIn, getUserProfile, updateUserProfile, deleteUserProfile } = useAuth()
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -109,6 +125,7 @@ const UserProfileEdit = () => {
           id: resource.id,
           user_name: resource.user_name,
           profile_pic: resource.avatar,
+          category: resource.category ?? '',
           business_name: resource.business_name,
           specialty: resource.specialty,
           tip_url: resource.tip_url,
@@ -126,6 +143,37 @@ const UserProfileEdit = () => {
 
   }, [isLoggedIn, router, getUserProfile, setFormValues])
 
+  const saveButton = (formData, { setSubmitting }) => {
+    setIsLoading(true)
+    setFormErrors([])
+    const newProfile = !formData.id
+    return updateUserProfile(newProfile, formData).then((response) => {
+      setSubmitting(false)
+      setIsLoading(false)
+      setSaveSuccess(true)
+      const newFormValues = {
+        ...formValues,
+        ...response.resource,
+        avatar: undefined,
+        profile_pic: response.resource.avatar,
+      }
+      setFormValues(newFormValues)
+    }).catch(({ response: { data: { errors } } }) => {
+      setFormErrors(errors)
+      setSubmitting(false)
+      setIsLoading(false)
+    })
+  }
+
+  const deleteButton = () => {
+    setIsLoading(true)
+    setFormErrors([])
+    deleteUserProfile().then(() => {
+      setFormValues(blankForm)
+      setIsLoading(false)
+    })
+  }
+
   return (
 
     <Container>
@@ -135,27 +183,7 @@ const UserProfileEdit = () => {
       <Formik
         enableReinitialize={true}
         initialValues={formValues}
-        onSubmit={(formData, { setSubmitting }) => {
-          setIsLoading(true)
-          setFormErrors([])
-          const newProfile = !formData.id
-          return updateUserProfile(newProfile, formData).then((response) => {
-            setSubmitting(false)
-            setIsLoading(false)
-            setSaveSuccess(true)
-            const newFormValues = {
-              ...formValues,
-              ...response.resource,
-              avatar: undefined,
-              profile_pic: response.resource.avatar,
-            }
-            setFormValues(newFormValues)
-          }).catch(({ response: { data: { errors } } }) => {
-            setFormErrors(errors)
-            setSubmitting(false)
-            setIsLoading(false)
-          })
-        }}
+        onSubmit={saveButton}
         validate={onProfileValidate}
       >
         {(formProps) => (
@@ -205,6 +233,14 @@ const UserProfileEdit = () => {
                       />
                     </label>
                   </FormControl>
+                  <div className={classes.deleteProfileContainer}>
+                    <Button
+                      className={classes.deleteProfileButton} color={'default'}
+                      onClick={deleteButton} variant={'contained'}
+                    >
+                      Delete Profile
+                    </Button>
+                  </div>
                 </Grid>
                 <Grid
                   item
@@ -239,6 +275,21 @@ const UserProfileEdit = () => {
                     />
                   </FormControl>
                   <FormControl className={classes.formInputs}>
+                    <Select
+                      aria-describedby={'category'}
+                      error={!!formProps.errors.category}
+                      name={'category'}
+                      onBlur={formProps.handleBlur}
+                      onChange={formProps.handleChange}
+                      value={formProps.values.category ? formProps.values.category : 'Stylist'}
+                    >
+                      <MenuItem value={'stylists'}>Stylist</MenuItem>
+                      <MenuItem value={'artists'}>Artist</MenuItem>
+                      <MenuItem value={'bartenders'}>Bartender</MenuItem>
+                    </Select>
+                    <FormHelperText>Choose the relevant category</FormHelperText>
+                  </FormControl>
+                  <FormControl className={classes.formInputs}>
                     <TextField
                       aria-describedby={'specialty'}
                       error={!!formProps.errors.specialty}
@@ -266,7 +317,8 @@ const UserProfileEdit = () => {
                   </FormControl>
                   <h2>Now for the fun part....</h2>
                   <p>
-                    Record a simple video for your clients. Give ideas for long-bang styles, advice for maintaining color – or just tell us what you’ve been up to!
+                    Record a simple video for your clients. Give ideas for long-bang styles, advice for maintaining
+                    color – or just tell us what you’ve been up to!
                   </p>
                   <FormControl className={classes.formInputs}>
                     <TextField
@@ -302,6 +354,15 @@ const UserProfileEdit = () => {
                   </FormControl>
 
                   <FormErrors errors={formErrors} />
+
+                  <div>
+                    <Button
+                      color={'primary'} disabled={isLoading}
+                      onClick={formProps.handleSubmit} variant={'contained'}
+                    >
+                      Save Profile
+                    </Button>
+                  </div>
 
                 </Grid>
               </Grid>
