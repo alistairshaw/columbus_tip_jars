@@ -5,6 +5,7 @@
 #  id            :bigint           not null, primary key
 #  blurb         :text
 #  business_name :string
+#  category      :string
 #  industry      :string
 #  nickname      :string
 #  specialty     :string

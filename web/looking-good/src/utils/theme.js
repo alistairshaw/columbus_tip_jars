@@ -18,9 +18,10 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: 'Raleway',
+    fontFamily: 'Roboto',
   },
   spacing: 4,
+  borderRadius: 5,
 })
 
 export default theme

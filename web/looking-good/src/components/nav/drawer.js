@@ -2,6 +2,16 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import useAuth from 'src/hooks/use-auth'
 import {
+  Brush as BrushIcon,
+  Face as FaceIcon,
+  Help as HelpIcon,
+  Home as HomeIcon,
+  Input as InputIcon,
+  LocalDrink as LocalDrinkIcon,
+  PersonAdd as PersonAddIcon,
+  AccountCircle as ProfileIcon,
+} from '@material-ui/icons/'
+import {
   Divider,
   Hidden,
   List,
@@ -10,13 +20,6 @@ import {
   ListItemText,
   Drawer as MaterialDrawer,
 } from '@material-ui/core'
-import {
-  Help as HelpIcon,
-  Home as HomeIcon,
-  Input as InputIcon,
-  PersonAdd as PersonAddIcon,
-  AccountCircle as ProfileIcon,
-} from '@material-ui/icons/'
 import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
 
@@ -29,7 +32,6 @@ export default function Drawer({ isOpen, onDrawerClose }) {
     <>
       <div className={classes.drawerHeader}>
         <img
-          button
           className={classes.logo}
           onClick={(e) => {
             e.preventDefault()
@@ -54,22 +56,63 @@ export default function Drawer({ isOpen, onDrawerClose }) {
           </ListItemIcon>
           <ListItemText primary={'Home'} />
         </ListItem>
+
+        <ListItem
+          button
+          onClick={(e) => {
+            e.preventDefault()
+            router.push('/category/stylists')
+          }}
+          selected={router.pathname === '/category/stylists'}
+        >
+          <ListItemIcon>
+            <FaceIcon />
+          </ListItemIcon>
+          <ListItemText primary={'Stylists'} />
+        </ListItem>
+
+        <ListItem
+          button
+          onClick={(e) => {
+            e.preventDefault()
+            router.push('/category/artists')
+          }}
+          selected={router.pathname === '/category/artists'}
+        >
+          <ListItemIcon>
+            <BrushIcon />
+          </ListItemIcon>
+          <ListItemText primary={'Artists'} />
+        </ListItem>
+
+        <ListItem
+          button
+          onClick={(e) => {
+            e.preventDefault()
+            router.push('/category/bartenders')
+          }}
+          selected={router.pathname === '/category/bartenders'}
+        >
+          <ListItemIcon>
+            <LocalDrinkIcon />
+          </ListItemIcon>
+          <ListItemText primary={'Bartenders'} />
+        </ListItem>
+
         {isLoggedIn && (
-          <>
-            <ListItem
-              button
-              onClick={(e) => {
-                e.preventDefault()
-                router.push('/user-profile-edit')
-              }}
-              selected={router.pathname === '/user-profile-edit'}
-            >
-              <ListItemIcon>
-                <ProfileIcon />
-              </ListItemIcon>
-              <ListItemText primary={'User Profile'} />
-            </ListItem>
-          </>
+          <ListItem
+            button
+            onClick={(e) => {
+              e.preventDefault()
+              router.push('/user-profile-edit')
+            }}
+            selected={router.pathname === '/user-profile-edit'}
+          >
+            <ListItemIcon>
+              <ProfileIcon />
+            </ListItemIcon>
+            <ListItemText primary={'User Profile'} />
+          </ListItem>
         )}
         <ListItem
           button

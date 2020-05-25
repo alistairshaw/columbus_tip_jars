@@ -1,25 +1,32 @@
 import React from 'react'
 import UserProfileProps from 'src/props/user-profile-props'
+import makeStyles from '@material-ui/core/styles/makeStyles'
 import { Avatar, Box, Button, Typography } from '@material-ui/core'
 import { useRouter } from 'next/router'
+
+const useStyles = makeStyles((theme) => ({
+  box: {
+    border: '1px solid #F0F0F0',
+    padding: theme.spacing(5),
+    borderRadius: theme.borderRadius,
+    background: 'white',
+    marginBottom: theme.spacing(5),
+    textAlign: 'center',
+    '& h1': {
+      marginTop: 0,
+    },
+  },
+}))
 
 export default function UserCard(props) {
   const userProfile = props.userProfile
   const router = useRouter()
+  const classes = useStyles()
 
   return (
     <Box
-      marginRight={2}
-      my={5} style={{
-        backgroundColor: 'white',
-        // border: '#4300ff 1.5px solid',
-        borderRadius: '25px',
-        paddingTop: '15px',
-        paddingBottom: '15px',
-        textAlign: 'center',
-        boxShadow: '7px 7px #808080',
-        margin: '2.5%',
-      }}
+      className={classes.box}
+      marginRight={2} my={5}
       width={250}
     >
       <Avatar
@@ -34,7 +41,7 @@ export default function UserCard(props) {
           onClick={() => {
             router.push(`/users/${userProfile.user_id}`)
           }} variant={'contained'}
-        >Tip Jar
+        >Go to Video
         </Button>
       </Box>
     </Box>

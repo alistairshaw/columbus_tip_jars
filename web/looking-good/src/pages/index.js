@@ -1,73 +1,34 @@
+import ContentSection from '../components/common/content-section'
+import FeaturedVideo from './category/featured-video'
+import HomeFooter from '../components/home/home-footer'
 import PropTypes from 'prop-types'
 import React from 'react'
-import UserCard from 'src/components/profile/user-card'
 import fetch from 'isomorphic-unfetch'
-import {
-  BottomNavigation,
-  BottomNavigationAction,
-  Box,
-  Button,
-  Grid,
-  Icon,
-  Typography,
-} from '@material-ui/core'
-import { GitHub as GitHubIcon } from '@material-ui/icons/'
 
-function CSCLogoIcon() {
-  return (
-    <Icon>
-      <a
-        href={'https://cantstopcolumbus.com/'} rel={'noopener noreferrer'}
-        target={'_blank'}
-      ><img src={'/logos/cscbus_logo_square.png'} style={{ width: 24, height: 24 }} />
-      </a>
-    </Icon>
-  )
+function featuredVideo(userProfiles, category) {
+  const activeVideos = userProfiles.filter((p) => p.category === category)
+  return activeVideos.length > 0 ? activeVideos[0] : null
 }
 
 export default function IndexPage({ userProfiles }) {
-  function profileSection() {
-    if (userProfiles) {
-      return (
-        <Grid container wrap={'wrap'}>
-          {userProfiles.map((profile) => <UserCard key={profile.id} userProfile={profile} />)}
-        </Grid>
-      )
-    } else {
-      return <div>Loading...</div>
-    }
-  }
-
   return (
     <div>
-      <Typography style={{ color: 'black' }} variant={'h3'}>Get a tip – leave a tip</Typography>
-      <Typography ariant={'h6'}>Connect with your stylist and get hints to keep yourself looking good. Tip your stylist to help them maintain income in this tough time.
+      <ContentSection>
+        <h1>Welcome to Columbus Tip Jars</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+          ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+          fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+          mollit anim id est laborum.
+        </p>
+      </ContentSection>
 
-        Simply search for your stylist by name. Check out some style tips and leave a tip for your stylist!
-      </Typography>
-      <Box mt={4}>
-        <Typography variant={'h5'}>FEATURED</Typography>
-      </Box>
-      {profileSection()}
-      <Button color={'primary'} variant={'contained'}>View all</Button>
-      <BottomNavigation
-        showlabels={true} style={{
-          width: '100vw',
-          display: 'flex',
-          justifyContent: 'space-evenly',
-          position: 'fixed',
-          bottom: 1,
-          left: 0,
-          boxSizing: 'border-box',
-        }}
-      >
-        <a
-          href={'https://github.com/alistairshaw/columbus_tip_jars'} rel={'noopener noreferrer'}
-          target={'_blank'}
-        ><BottomNavigationAction icon={(<GitHubIcon />)} label={'GitHub'} />
-        </a>
-        <BottomNavigationAction icon={(<CSCLogoIcon />)} label={'Can\'t Stop Columbus'} />
-      </BottomNavigation>
+      <FeaturedVideo title={'Featured Stylist Video'} userProfile={featuredVideo(userProfiles, 'stylists')} />
+      <FeaturedVideo title={'Featured Artist Video'} userProfile={featuredVideo(userProfiles, 'artists')} />
+      <FeaturedVideo title={'Featured Bartender Video'} userProfile={featuredVideo(userProfiles, 'bartenders')} />
+
+      <HomeFooter />
     </div>
   )
 }
