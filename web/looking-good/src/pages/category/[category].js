@@ -2,10 +2,11 @@ import ContentSection from '../../components/common/content-section'
 import FeaturedVideo from './featured-video'
 import NoFeaturedVideoYet from './no-featured-video-yet'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect } from 'react'
 import UserCard from '../../components/profile/user-card'
 import fetch from 'isomorphic-unfetch'
 import { Grid } from '@material-ui/core'
+import { initGA, logPageView } from "./../../utils/analytics"
 
 const categoryCopy = {
   stylists:
@@ -36,6 +37,10 @@ const categoryCopy = {
 }
 
 export default function Category({ category, userProfiles }) {
+  useEffect(() => {
+    initGA()
+    logPageView()
+  })
 
   const activeProfiles = userProfiles.filter((p) => p.category === category)
   const featuredProfile = activeProfiles.length > 0

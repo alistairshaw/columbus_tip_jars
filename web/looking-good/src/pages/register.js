@@ -16,6 +16,7 @@ import {
 import { Formik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
+import { initGA, logPageView } from "./../utils/analytics"
 
 export default function Register() {
   const classes = useStyles()
@@ -27,6 +28,8 @@ export default function Register() {
     if (isLoggedIn) {
       router.push('/')
     }
+    initGA()
+    logPageView()
   })
 
   const initialFormValues = {

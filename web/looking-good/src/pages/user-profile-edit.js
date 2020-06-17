@@ -19,6 +19,7 @@ import {
 } from '@material-ui/core'
 import { Formik } from 'formik'
 import { useRouter } from 'next/router'
+import { initGA, logPageView } from "./../utils/analytics"
 
 const useStyles = makeStyles({
   avatar: {
@@ -140,7 +141,8 @@ const UserProfileEdit = () => {
       // If user is logged out, kick them to the sign-in
       router.push('/login')
     }
-
+    initGA()
+    logPageView()
   }, [isLoggedIn, router, getUserProfile, setFormValues])
 
   const saveButton = (formData, { setSubmitting }) => {
