@@ -1,12 +1,18 @@
 import DonateButton from 'src/components/profile/donate-button'
-import React from 'react'
+import React, { useEffect } from 'react'
 import UserProfileProps from 'src/props/user-profile-props'
 import UserViewHeading from 'src/components/profile/heading'
 import Video from 'src/components/profile/video'
 import fetch from 'isomorphic-unfetch'
 import { Avatar, Grid } from '@material-ui/core'
+import { initGA, logPageView } from "./../../utils/analytics"
 
 export default function UserProfilePage({ userProfile }) {
+  useEffect(() => {
+    initGA()
+    logPageView()
+  })
+
   if (!userProfile) {
     return (
       <div>Loading...</div>

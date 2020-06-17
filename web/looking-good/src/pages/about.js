@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Container, Typography } from '@material-ui/core'
+import { initGA, logPageView } from "./../utils/analytics"
+
 
 export default function AboutPage() {
+  useEffect(() => {
+    initGA()
+    logPageView()
+  })
+
   return (
     <Container>
       <Typography color={'textPrimary'} variant={'h3'}>{'About Us'}</Typography>
