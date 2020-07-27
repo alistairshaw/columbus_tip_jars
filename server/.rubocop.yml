@@ -15,7 +15,7 @@ Layout/EmptyLineAfterGuardClause:
 Lint/Debugger:
   AutoCorrect: false
 
-  Lint/IneffectiveAccessModifier:
+Lint/IneffectiveAccessModifier:
   Enabled: false
 
 
