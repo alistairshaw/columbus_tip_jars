@@ -201,7 +201,7 @@ const UserProfileEdit = () => {
                 Profile Updated
               </MuiAlert>
             </Snackbar>
-            <h1>Hello Gorgeous!</h1>
+            <h1>Welcome!</h1>
             <h2 style={{ marginBottom: 60 }}>
               Show off your skills & best advice for your clients (and maybe get some new ones)!
             </h2>
