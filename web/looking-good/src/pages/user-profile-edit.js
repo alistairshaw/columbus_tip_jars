@@ -203,7 +203,7 @@ const UserProfileEdit = () => {
             </Snackbar>
             <h1>Welcome!</h1>
             <h2 style={{ marginBottom: 60 }}>
-              Show off your skills & best advice for your clients (and maybe get some new ones)!
+              Tip Columbus lets you show off your skills & best advice and lets everyone else tip you for your excellence!
             </h2>
             <div>
               <Grid container spacing={3}>
@@ -265,7 +265,7 @@ const UserProfileEdit = () => {
                     <TextField
                       aria-describedby={'business_name'}
                       error={!!formProps.errors.business_name}
-                      helperText={'If you normally work at a salon or other business, tell us that business name'}
+                      helperText={'If you normally work at business, tell us that business name to make you easier to find'}
                       id={'business_name'}
                       label={'Business Name'}
                       name={'business_name'}
@@ -293,7 +293,7 @@ const UserProfileEdit = () => {
                     <TextField
                       aria-describedby={'specialty'}
                       error={!!formProps.errors.specialty}
-                      helperText={'e.g. Hair Stylist, Nail Expert'}
+                      helperText={'e.g. Hair Stylist, Muralist, Mixologist, Ninja'}
                       id={'specialty'}
                       label={'Specialty or Title'}
                       name={'specialty'}
@@ -317,8 +317,7 @@ const UserProfileEdit = () => {
                   </FormControl>
                   <h2>Now for the fun part....</h2>
                   <p>
-                    Record a simple video for your clients. Give ideas for long-bang styles, advice for maintaining
-                    color – or just tell us what you’ve been up to!
+                    Record a simple video for your adoring public. Give them ideas for trying one of your favorite techniques, advice for staying sane/stylish/safe/hydrated/hip while socially distancing – or just tell them what you’ve been up to!
                   </p>
                   <FormControl className={classes.formInputs}>
                     <TextField
@@ -335,8 +334,8 @@ const UserProfileEdit = () => {
                   </FormControl>
                   <p>
                     Give us a few words to preview what we’ll see in your vid and encourage your
-                    clients to share, share, share! Make sure to remind them to tag you and
-                    use <strong>#LookingGoodCbus</strong> when they post about how awesome you are!
+                    viewers to share, share, share! Make sure to remind them to tag you and
+                    use <strong>#TipColumbus</strong> when they post about how awesome you are!
                   </p>
                   <FormControl className={classes.formInputs}>
                     <TextField
