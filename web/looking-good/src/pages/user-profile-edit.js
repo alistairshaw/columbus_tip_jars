@@ -234,14 +234,7 @@ const UserProfileEdit = () => {
                       />
                     </label>
                   </FormControl>
-                  <div className={classes.deleteProfileContainer}>
-                    <Button
-                      className={classes.deleteProfileButton} color={'default'}
-                      onClick={deleteButton} variant={'contained'}
-                    >
-                      Delete Profile
-                    </Button>
-                  </div>
+                         
                 </Grid>
                 <Grid
                   item
@@ -364,7 +357,16 @@ const UserProfileEdit = () => {
                       Save Profile
                     </Button>
                   </div>
-
+                         
+                  <div className={classes.deleteProfileContainer}>
+                    <Button
+                     className={classes.deleteProfileButton} color={'default'}
+                     onClick={deleteButton} variant={'contained'}
+                    >
+                     Delete Profile
+                    </Button>
+                  </div>
+                         
                 </Grid>
               </Grid>
             </div>
