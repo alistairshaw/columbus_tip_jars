@@ -89,6 +89,20 @@ export default function Drawer({ isOpen, onDrawerClose }) {
           button
           onClick={(e) => {
             e.preventDefault()
+            router.push('/category/musicians')
+          }}
+          selected={router.pathname === '/category/musicians'}
+        >
+          <ListItemIcon>
+            <LocalDrinkIcon />
+          </ListItemIcon>
+          <ListItemText primary={'Musicians'} />
+        </ListItem>
+
+        <ListItem
+          button
+          onClick={(e) => {
+            e.preventDefault()
             router.push('/category/bartenders')
           }}
           selected={router.pathname === '/category/bartenders'}

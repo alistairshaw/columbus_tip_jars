@@ -285,6 +285,7 @@ const UserProfileEdit = () => {
                     >
                       <MenuItem value={'stylists'}>Stylist</MenuItem>
                       <MenuItem value={'artists'}>Artist</MenuItem>
+                      <MenuItem value={'musicians'}>Musician</MenuItem>
                       <MenuItem value={'bartenders'}>Bartender</MenuItem>
                     </Select>
                     <FormHelperText>Choose the relevant category</FormHelperText>

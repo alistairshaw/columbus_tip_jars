@@ -24,6 +24,14 @@ const categoryCopy = {
     </p>
     <p>Search for your artist by name or browse below. Check out some art tips and leave a tip for your artist!</p>
   </div>,
+  musicians:
+  <div>
+    <p>Connect with your favorite local musicians and hear all their latest music. Tip to help them maintain income
+      in this tough time.
+    </p>
+    <p>Search for your favorite musician by name or browse below. Check out some tunes and leave a tip!
+    </p>
+  </div>,
   bartenders:
   <div>
     <p>Connect with your bartender and work on your cocktail recipes. Tip your bartender to help them maintain income
