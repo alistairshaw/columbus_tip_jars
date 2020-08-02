@@ -8,6 +8,7 @@ import {
   Home as HomeIcon,
   Input as InputIcon,
   LocalDrink as LocalDrinkIcon,
+  SettingsVoice as SettingsVoiceIcon,
   PersonAdd as PersonAddIcon,
   AccountCircle as ProfileIcon,
 } from '@material-ui/icons/'
@@ -94,7 +95,7 @@ export default function Drawer({ isOpen, onDrawerClose }) {
           selected={router.pathname === '/category/musicians'}
         >
           <ListItemIcon>
-            <LocalDrinkIcon />
+            <SettingsVoiceIcon />
           </ListItemIcon>
           <ListItemText primary={'Musicians'} />
         </ListItem>
