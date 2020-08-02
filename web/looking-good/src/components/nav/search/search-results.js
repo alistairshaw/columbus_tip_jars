@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: 300,
     background: 'white',
-    border: '1px solid #999',
     color: theme.palette.primary.main,
     overflow: 'auto',
   },

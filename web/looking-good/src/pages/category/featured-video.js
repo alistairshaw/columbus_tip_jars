@@ -11,6 +11,7 @@ export default function FeaturedVideo({ userProfile, title }) {
       <h1>{title ? title : 'Featured Video'}</h1>
       <Video url={userProfile.video_url} />
       <p>{userProfile.blurb}</p>
+      <p><a href="{userProfile.tip_url}">Tip {userProfile.user_name}</a></p>
     </ContentSection>
   )
 }

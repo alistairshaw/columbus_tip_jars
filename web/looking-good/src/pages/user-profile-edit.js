@@ -81,7 +81,8 @@ const onProfileValidate = (formValues) => {
     '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
     '(\\#[-a-z\\d_]*)?$', 'i',
   )
-
+    
+  // video link this don't absolutely need to be required, but more importantly, they should be able to have multiples
   if (!formValues.video_url) {
     errors.video_url = 'Required'
   } else if (urlpattern.exec(formValues.video_url) === null) {
