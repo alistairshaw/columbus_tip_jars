@@ -17,9 +17,7 @@ export default function UserProfilePage({ userProfile }) {
     <Grid
       container spacing={3}
       style={{
-        border: '2px #808080 solid',
         backgroundColor: 'white',
-        borderRadius: '25px',
         width: '90%',
         padding: '1.5%',
         margin: 'auto',
