@@ -31,6 +31,7 @@ IndexPage.propTypes = {
   userProfiles: PropTypes.array,
 }
 
+
 export async function getServerSideProps() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/user_profiles`)
   if (!response.ok) {
