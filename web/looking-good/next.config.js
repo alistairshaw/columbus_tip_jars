@@ -7,7 +7,7 @@ module.exports = {
     return config;
   },
   env: {
-    NEXT_PUBLIC_API_URL: "https://columbus-tip-jar.herokuapp.com/",
+    NEXT_PUBLIC_API_URL: "https://lookinggoodcolumbus.alistairshaw.co.uk/",
   },
   target: "serverless",
 };
