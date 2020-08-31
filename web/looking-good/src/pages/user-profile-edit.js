@@ -91,6 +91,8 @@ const onProfileValidate = (formValues) => {
     errors.tip_url = 'Required'
   } else if (urlpattern.exec(formValues.tip_url) === null) {
     errors.tip_url = 'Invalid URL'
+  } else if (urlpattern.exec(formValues.tip_url)[1] === undefined) {
+    errors.tip_url = 'Please include http:// or https://'
   }
 
   return errors
@@ -306,7 +308,7 @@ const UserProfileEdit = () => {
                     <TextField
                       aria-describedby={'tip_url'}
                       error={!!formProps.errors.tip_url}
-                      helperText={'e.g. Paypal.me page, venmo link - whatever you\'ve got!)'}
+                      helperText={(formProps.errors.tip_url && formProps.errors.tip_url !== 'Required') ? formProps.errors.tip_url : 'e.g. Paypal.me page, venmo link - whatever you\'ve got!)'}
                       id={'tip_url'}
                       label={'Give us a link to tip you'}
                       name={'tip_url'}
