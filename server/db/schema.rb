@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_24_190015) do
+ActiveRecord::Schema.define(version: 2020_08_02_181324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,15 @@ ActiveRecord::Schema.define(version: 2020_05_24_190015) do
     t.index ["profile_type", "profile_id"], name: "index_donation_methods_on_profile_type_and_profile_id"
   end
 
+  create_table "user_profile_videos", force: :cascade do |t|
+    t.string "video_url"
+    t.string "blurb"
+    t.bigint "user_profile_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_profile_id"], name: "index_user_profile_videos_on_user_profile_id"
+  end
+
   create_table "user_profiles", force: :cascade do |t|
     t.string "user_name"
     t.string "industry"
@@ -109,5 +118,6 @@ ActiveRecord::Schema.define(version: 2020_05_24_190015) do
   add_foreign_key "business_profiles", "users"
   add_foreign_key "business_user_profiles", "business_profiles"
   add_foreign_key "business_user_profiles", "user_profiles"
+  add_foreign_key "user_profile_videos", "user_profiles"
   add_foreign_key "user_profiles", "users"
 end

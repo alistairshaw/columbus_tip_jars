@@ -19,6 +19,7 @@ export default function IndexPage({ userProfiles }) {
 
       <FeaturedVideo title={'Featured Stylist Video'} userProfile={featuredVideo(userProfiles, 'stylists')} />
       <FeaturedVideo title={'Featured Artist Video'} userProfile={featuredVideo(userProfiles, 'artists')} />
+      <FeaturedVideo title={'Featured Musician Video'} userProfile={featuredVideo(userProfiles, 'musicians')} />
       <FeaturedVideo title={'Featured Bartender Video'} userProfile={featuredVideo(userProfiles, 'bartenders')} />
 
       <HomeFooter />
@@ -29,6 +30,7 @@ export default function IndexPage({ userProfiles }) {
 IndexPage.propTypes = {
   userProfiles: PropTypes.array,
 }
+
 
 export async function getServerSideProps() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/user_profiles`)

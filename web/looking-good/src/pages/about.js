@@ -10,7 +10,7 @@ export default function AboutPage() {
         <Typography variant={'h6'}>
           This site was made with &lt;3 by Can&lsquo;t Stop Columbus.
           Can’t Stop Columbus is a community-wide movement that activates our city’s talents and compassion to solve real problems. We embrace courageous ideas and rapidly deliver new and next solutions.
-          We are pooling together the knowledge, time and resources of people all across the city to crowd-source and deliver needed solutions that address the challenges of COVID-19.
+          We are pooling together the knowledge, time and resources of people all across the city to crowd-source and deliver needed solutions that address challenges in our community.
           Please visit our website to learn more or join us!
         </Typography>
       </Box>

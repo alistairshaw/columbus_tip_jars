@@ -1,0 +1,8 @@
+[build]
+  command   = "yarn build"
+  functions = "web/looking-good/out_functions"
+  publish   = "web/looking-good/out_publish"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

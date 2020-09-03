@@ -44,6 +44,7 @@ Rails.application.routes.draw do
 
       resources :user_profiles, only: %i[index show create update destroy] do
         resources :donation_methods, only: %i[index show create update]
+        resources :user_profile_videos, only: %i[index show create]
       end
     end
   end

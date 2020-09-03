@@ -11,6 +11,11 @@
 # next.js
 /.next/
 /out/
+/out_functions/
+/out_publish/
+
+# Netlify 
+.netlify/
 
 # production
 /build

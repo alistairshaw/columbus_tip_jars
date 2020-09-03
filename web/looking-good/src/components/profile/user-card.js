@@ -6,9 +6,7 @@ import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme) => ({
   box: {
-    border: '1px solid #F0F0F0',
     padding: theme.spacing(5),
-    borderRadius: theme.borderRadius,
     background: 'white',
     marginBottom: theme.spacing(5),
     textAlign: 'center',
